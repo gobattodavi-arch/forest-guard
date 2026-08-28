@@ -1,477 +1,2085 @@
 <!DOCTYPE html>
 
-<html lang="pt-BR"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Forest Guard</title>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forest Guard</title>
 
-<style> :root{ --verde:#10ac84; --verde2:#1dd1a1; --claro:#10ffb0; --limao:#a3cb38; --fundo:#08110c; --card:#122019; --texto:#eefaf3; --cinza:#8da598; --vermelho:#ff5050; --azul:#55aaff; } *{ box-sizing:border-box; } body{ margin:0; min-height:100vh; font-family:Segoe UI,Arial,sans-serif; background: radial-gradient(circle at top,#123d28 0%,#08110c 60%); color:var(--texto); } button,input{ font-family:inherit; } .tela{ width:100%; max-width:1100px; margin:auto; padding:20px; } .card{ background:rgba(18,32,25,.96); border:1px solid rgba(29,209,161,.2); border-radius:18px; padding:25px; box-shadow:0 15px 45px rgba(0,0,0,.45); } #login{ max-width:430px; margin:10vh auto; } .logo{ text-align:center; font-size:30px; font-weight:bold; color:var(--claro); } .subtitulo{ text-align:center; color:var(--cinza); margin:10px 0 25px; } label{ display:block; color:var(--verde2); font-size:12px; font-weight:bold; margin-bottom:6px; } input{ width:100%; padding:13px; border-radius:9px; border:1px solid rgba(29,209,161,.3); background:#09150f; color:white; outline:none; } input:focus{ border-color:var(--claro); } .btn{ border:0; border-radius:9px; padding:12px 17px; background:linear-gradient(135deg,var(--verde),#075b3e); color:white; font-weight:bold; cursor:pointer; } .btn:hover{ filter:brightness(1.2); } .btn-largo{ width:100%; margin-top:15px; } .btn-secundario{ background:transparent; border:1px solid rgba(29,209,161,.3); } .link-btn{ display:block; width:100%; margin-top:12px; border:0; background:transparent; color:var(--verde2); cursor:pointer; padding:8px; font-weight:bold; } .link-btn:hover{ color:var(--claro); } .mensagem-login{ margin-top:15px; padding:11px; border-radius:9px; display:none; text-align:center; font-size:13px; } .mensagem-login.erro{ display:block; background:rgba(255,80,80,.12); border:1px solid rgba(255,80,80,.4); color:#ff8585; } .mensagem-login.sucesso{ display:block; background:rgba(29,209,161,.12); border:1px solid rgba(29,209,161,.4); color:var(--claro); } .aviso-seguranca{ margin-top:15px; color:var(--cinza); font-size:11px; text-align:center; } #cadastro, #verificacao{ display:none; max-width:430px; margin:10vh auto; } .codigo{ text-align:center; font-size:28px; letter-spacing:8px; font-weight:bold; color:var(--claro); } .suporte{ margin-top:14px; text-align:center; font-size:12px; color:var(--cinza); } .suporte a{ color:var(--verde2); } #painel{ display:none; } .topo{ display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap; border-bottom:1px solid rgba(29,209,161,.2); padding-bottom:15px; margin-bottom:18px; } .titulo{ font-size:25px; font-weight:bold; color:var(--claro); } .relogio{ font-family:monospace; font-size:17px; color:var(--claro); } .status{ padding:8px 12px; border-radius:20px; background:rgba(255,180,0,.12); color:#ffd34d; font-size:13px; font-weight:bold; } .status.ok{ background:rgba(16,172,132,.15); color:var(--claro); } .local{ padding:14px; background:rgba(0,0,0,.2); border-radius:10px; margin-bottom:18px; color:#d9e9df; } .local strong{ color:var(--verde2); } .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:15px; } .info{ background:rgba(0,0,0,.2); border-radius:12px; padding:20px; } .info h3{ color:var(--cinza); font-size:13px; margin-top:0; } .temperatura{ font-size:43px; font-weight:bold; color:var(--limao); } .risco{ padding:15px; border-radius:10px; text-align:center; font-weight:bold; } .normal{ background:rgba(16,172,132,.15); border:1px solid var(--verde); color:var(--verde2); } .atencao{ background:rgba(60,140,255,.15); border:1px solid var(--azul); color:#72b5ff; } .perigo{ background:rgba(255,50,50,.15); border:1px solid var(--vermelho); color:#ff7070; } .acoes{ display:flex; flex-wrap:wrap; gap:10px; margin:20px 0; } .secao{ margin-top:25px; } .secao h2{ font-size:19px; } .tabela{ width:100%; overflow-x:auto; } table{ width:100%; border-collapse:collapse; background:rgba(0,0,0,.2); } th,td{ padding:11px; border-bottom:1px solid rgba(255,255,255,.06); text-align:center; } th{ color:var(--verde2); } .badge{ padding:5px 9px; border-radius:12px; font-size:11px; font-weight:bold; } #ia{ margin-top:25px; } .ia-topo{ display:flex; align-items:center; gap:12px; margin-bottom:15px; } .ia-icone{ width:45px; height:45px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:rgba(29,209,161,.15); font-size:23px; } .ia-nome{ font-weight:bold; color:var(--claro); } .ia-status{ font-size:11px; color:var(--cinza); } #mensagens{ height:280px; overflow-y:auto; padding:12px; background:#09140e; border-radius:12px; border:1px solid rgba(29,209,161,.1); } .msg{ max-width:85%; padding:10px 13px; margin:8px 0; border-radius:12px; line-height:1.4; font-size:14px; } .bot{ background:#183027; margin-right:auto; } .usuario{ background:#075b43; margin-left:auto; } .atalhos{ display:flex; gap:7px; flex-wrap:wrap; margin:10px 0; } .atalho{ border:1px solid rgba(29,209,161,.25); background:#0c1c14; color:#b9e8d3; border-radius:15px; padding:7px 10px; cursor:pointer; font-size:12px; } .entrada-ia{ display:flex; gap:8px; } .entrada-ia input{ flex:1; } #historico{ max-height:400px; overflow:auto; } @media(max-width:600px){ .tela{ padding:10px; } .card{ padding:17px; } .temperatura{ font-size:35px; } .entrada-ia{ flex-direction:column; } } </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<style>
+:root{
+--verde:#10ac84;
+--verde2:#1dd1a1;
+--claro:#10ffb0;
+--limao:#a3cb38;
+--fundo:#08110c;
+--card:#122019;
+--texto:#eefaf3;
+--cinza:#8da598;
+--vermelho:#ff5050;
+--azul:#55aaff;
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+min-height:100vh;
+font-family:Segoe UI,Arial,sans-serif;
+background:radial-gradient(circle at top,#123d28 0%,#08110c 60%);
+color:var(--texto);
+}
+button,input{font-family:inherit}
+.tela{width:100%;max-width:1100px;margin:auto;padding:20px}
+.card{
+background:rgba(18,32,25,.96);
+border:1px solid rgba(29,209,161,.2);
+border-radius:18px;
+padding:25px;
+box-shadow:0 15px 45px rgba(0,0,0,.45)
+}
+#login{max-width:430px;margin:10vh auto}
+.logo{text-align:center;font-size:30px;font-weight:bold;color:var(--claro)}
+.subtitulo{text-align:center;color:var(--cinza);margin:10px 0 25px}
+label{
+display:block;
+color:var(--verde2);
+font-size:12px;
+font-weight:bold;
+margin-bottom:6px
+}
+input{
+width:100%;
+padding:13px;
+border-radius:9px;
+border:1px solid rgba(29,209,161,.3);
+background:#09150f;
+color:white;
+outline:none
+}
+input:focus{border-color:var(--claro)}
+.btn{
+border:0;
+border-radius:9px;
+padding:12px 17px;
+background:linear-gradient(135deg,var(--verde),#075b3e);
+color:white;
+font-weight:bold;
+cursor:pointer
+}
+.btn:hover{filter:brightness(1.2)}
+.btn-largo{width:100%;margin-top:15px}
+.link-btn{
+display:block;
+width:100%;
+margin-top:12px;
+border:0;
+background:transparent;
+color:var(--verde2);
+cursor:pointer;
+padding:8px;
+font-weight:bold
+}
+.link-btn:hover{color:var(--claro)}
+.mensagem-login{
+margin-top:15px;
+padding:11px;
+border-radius:9px;
+display:none;
+text-align:center;
+font-size:13px
+}
+.mensagem-login.erro{
+display:block;
+background:rgba(255,80,80,.12);
+border:1px solid rgba(255,80,80,.4);
+color:#ff8585
+}
+.mensagem-login.sucesso{
+display:block;
+background:rgba(29,209,161,.12);
+border:1px solid rgba(29,209,161,.4);
+color:var(--claro)
+}
+.aviso-seguranca{
+margin-top:15px;
+color:var(--cinza);
+font-size:11px;
+text-align:center
+}
+#cadastro,#verificacao{
+display:none;
+max-width:430px;
+margin:10vh auto
+}
+.codigo{
+text-align:center;
+font-size:28px;
+letter-spacing:8px;
+font-weight:bold;
+color:var(--claro)
+}
+.suporte{
+margin-top:14px;
+text-align:center;
+font-size:12px;
+color:var(--cinza)
+}
+.suporte a{color:var(--verde2)}
+#painel{display:none}
+.topo{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+flex-wrap:wrap;
+border-bottom:1px solid rgba(29,209,161,.2);
+padding-bottom:15px;
+margin-bottom:18px
+}
+.titulo{font-size:25px;font-weight:bold;color:var(--claro)}
+.relogio{font-family:monospace;font-size:17px;color:var(--claro)}
+.status{
+padding:8px 12px;
+border-radius:20px;
+background:rgba(255,180,0,.12);
+color:#ffd34d;
+font-size:13px;
+font-weight:bold
+}
+.status.ok{
+background:rgba(16,172,132,.15);
+color:var(--claro)
+}
+.local{
+padding:14px;
+background:rgba(0,0,0,.2);
+border-radius:10px;
+margin-bottom:18px;
+color:#d9e9df
+}
+.local strong{color:var(--verde2)}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+gap:15px
+}
+.info{
+background:rgba(0,0,0,.2);
+border-radius:12px;
+padding:20px
+}
+.info h3{color:var(--cinza);font-size:13px;margin-top:0}
+.temperatura{
+font-size:43px;
+font-weight:bold;
+color:var(--limao)
+}
+.risco{
+padding:15px;
+border-radius:10px;
+text-align:center;
+font-weight:bold
+}
+.normal{
+background:rgba(16,172,132,.15);
+border:1px solid var(--verde);
+color:var(--verde2)
+}
+.atencao{
+background:rgba(60,140,255,.15);
+border:1px solid var(--azul);
+color:#72b5ff
+}
+.perigo{
+background:rgba(255,50,50,.15);
+border:1px solid var(--vermelho);
+color:#ff7070
+}
+.acoes{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin:20px 0
+}
+.secao{margin-top:25px}
+.secao h2{font-size:19px}
+.tabela{width:100%;overflow-x:auto}
+table{
+width:100%;
+border-collapse:collapse;
+background:rgba(0,0,0,.2)
+}
+th,td{
+padding:11px;
+border-bottom:1px solid rgba(255,255,255,.06);
+text-align:center
+}
+th{color:var(--verde2)}
+.badge{
+padding:5px 9px;
+border-radius:12px;
+font-size:11px;
+font-weight:bold
+}
+#ia{margin-top:25px}
+.ia-topo{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:15px
+}
+.ia-icone{
+width:45px;
+height:45px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(29,209,161,.15);
+font-size:23px
+}
+.ia-nome{font-weight:bold;color:var(--claro)}
+.ia-status{font-size:11px;color:var(--cinza)}
+#mensagens{
+height:280px;
+overflow-y:auto;
+padding:12px;
+background:#09140e;
+border-radius:12px;
+border:1px solid rgba(29,209,161,.1)
+}
+.msg{
+max-width:85%;
+padding:10px 13px;
+margin:8px 0;
+border-radius:12px;
+line-height:1.4;
+font-size:14px
+}
+.bot{background:#183027;margin-right:auto}
+.usuario{background:#075b43;margin-left:auto}
+.atalhos{
+display:flex;
+gap:7px;
+flex-wrap:wrap;
+margin:10px 0
+}
+.atalho{
+border:1px solid rgba(29,209,161,.25);
+background:#0c1c14;
+color:#b9e8d3;
+border-radius:15px;
+padding:7px 10px;
+cursor:pointer;
+font-size:12px
+}
+.entrada-ia{display:flex;gap:8px}
+.entrada-ia input{flex:1}
+#historico{max-height:400px;overflow:auto}
+@media(max-width:600px){
+.tela{padding:10px}
+.card{padding:17px}
+.temperatura{font-size:35px}
+.entrada-ia{flex-direction:column}
+}
+</style>
 
 </head>
 
 <body>
 
 <div class="tela" id="login">
-
 <div class="card">
 
 <div class="logo">🌲 FOREST GUARD</div>
+<div class="subtitulo">Sistema de monitoramento ambiental</div>
 
-<div class="subtitulo">
-    Sistema de monitoramento ambiental
-</div>
-
-<label>E-mail</label>
-<input
-    id="email"
-    type="email"
-    placeholder="seu@email.com"
-    autocomplete="email">
+<label>E-mail</label> <input id="email" type="email" placeholder="seu@email.com" autocomplete="email">
 
 <br><br>
 
-<label>Senha</label>
-<input
-    id="senha"
-    type="password"
-    placeholder="••••••••"
-    autocomplete="current-password"
-    onkeydown="if(event.key==='Enter') entrar()">
+<label>Senha</label> <input
+id="senha"
+type="password"
+placeholder="••••••••"
+autocomplete="current-password"
+onkeydown="if(event.key==='Enter') entrar()">
 
-<button
-    class="btn btn-largo"
-    onclick="entrar()">
-    Entrar no Forest Guard
+<button class="btn btn-largo" onclick="entrar()">
+Entrar no Forest Guard
 </button>
 
-<button
-    class="link-btn"
-    onclick="mostrarCadastro()">
-    📝 Cadastre-se
+<button class="link-btn" onclick="mostrarCadastro()">
+📝 Cadastre-se
 </button>
 
 <div id="mensagemLogin" class="mensagem-login"></div>
 
 <div class="aviso-seguranca">
-    🔐 Sistema protegido contra tentativas repetidas.
+🔐 Sistema protegido contra tentativas repetidas.
 </div>
 
 </div>
-
 </div>
 
 <div class="tela" id="cadastro">
-
 <div class="card">
 
 <div class="logo">🌲 CRIAR CONTA</div>
+<div class="subtitulo">Crie sua conta no Forest Guard</div>
 
-<div class="subtitulo">
-    Crie sua conta no Forest Guard
-</div>
-
-<label>E-mail</label>
-<input
-    id="cadastroEmail"
-    type="email"
-    placeholder="seu@email.com"
-    autocomplete="email">
+<label>E-mail</label> <input id="cadastroEmail" type="email" placeholder="seu@email.com" autocomplete="email">
 
 <br><br>
 
-<label>Senha</label>
-<input
-    id="cadastroSenha"
-    type="password"
-    placeholder="Mínimo de 6 caracteres"
-    autocomplete="new-password">
+<label>Senha</label> <input id="cadastroSenha" type="password" placeholder="Mínimo de 6 caracteres" autocomplete="new-password">
 
 <br><br>
 
-<label>Confirmar senha</label>
-<input
-    id="cadastroConfirmar"
-    type="password"
-    placeholder="Digite a senha novamente"
-    autocomplete="new-password"
-    onkeydown="if(event.key==='Enter') cadastrar()">
+<label>Confirmar senha</label> <input
+id="cadastroConfirmar"
+type="password"
+placeholder="Digite a senha novamente"
+autocomplete="new-password"
+onkeydown="if(event.key==='Enter') cadastrar()">
 
-<button
-    class="btn btn-largo"
-    onclick="cadastrar()">
-    Criar conta
+<button class="btn btn-largo" onclick="cadastrar()">
+Criar conta
 </button>
 
-<button
-    class="link-btn"
-    onclick="mostrarLogin()">
-    ← Voltar para o login
+<button class="link-btn" onclick="mostrarLogin()">
+← Voltar para o login
 </button>
 
 <div id="mensagemCadastro" class="mensagem-login"></div>
 
 </div>
-
 </div>
 
 <div class="tela" id="verificacao">
-
 <div class="card">
 
 <div class="logo">📧 VERIFICAÇÃO</div>
 
 <div class="subtitulo">
-    Confirme seu e-mail para continuar
+Confirme seu e-mail para continuar
 </div>
 
 <p style="text-align:center;color:var(--cinza);font-size:13px;">
-    Digite o código de 6 números enviado para:
+Digite o código de 6 números enviado para:
 </p>
 
 <p
-    id="emailVerificacao"
-    style="text-align:center;color:var(--verde2);font-weight:bold;">
+id="emailVerificacao"
+style="text-align:center;color:var(--verde2);font-weight:bold;">
 </p>
 
 <label>Código de verificação</label>
 
 <input
-    id="codigoVerificacao"
-    type="text"
-    inputmode="numeric"
-    maxlength="6"
-    placeholder="000000"
-    style="text-align:center;font-size:22px;letter-spacing:6px;"
-    onkeydown="if(event.key==='Enter') verificarCodigo()">
+id="codigoVerificacao"
+type="text"
+inputmode="numeric"
+maxlength="6"
+placeholder="000000"
+style="text-align:center;font-size:22px;letter-spacing:6px;"
+onkeydown="if(event.key==='Enter') verificarCodigo()">
 
-<button
-    class="btn btn-largo"
-    onclick="verificarCodigo()">
-    ✅ Verificar e-mail
+<button class="btn btn-largo" onclick="verificarCodigo()">
+✅ Verificar e-mail
 </button>
 
-<button
-    class="link-btn"
-    onclick="mostrarLogin()">
-    ← Voltar para o login
+<button class="link-btn" onclick="mostrarLogin()">
+← Voltar para o login
 </button>
 
 <div id="mensagemVerificacao" class="mensagem-login"></div>
 
 <div class="aviso-seguranca">
-    Para uma implantação pública, o envio real deste código deverá ser ligado a um serviço de autenticação.
+📧 O código será enviado automaticamente para o e-mail informado.
 </div>
 
 </div>
-
 </div>
 
 <div class="tela" id="painel">
-
 <div class="card">
 
 <div class="topo">
 
-    <div class="titulo">
-        🌲 FOREST GUARD
-    </div>
+<div class="titulo">🌲 FOREST GUARD</div>
 
-    <div
-        class="relogio"
-        id="relogio">
-        --:--:--
-    </div>
+<div class="relogio" id="relogio">--:--:--</div>
 
-    <div
-        class="status"
-        id="status">
-        ⚠️ Arduino desconectado
-    </div>
+<div class="status" id="status">
+⚠️ Arduino desconectado
+</div>
 
 </div>
 
 <div class="local">
 
-    📍 <strong>Localização:</strong>
-    <span id="localizacao">
-        Aguardando permissão...
-    </span>
+📍 <strong>Localização:</strong> <span id="localizacao">Aguardando permissão...</span>
 
-    <br><br>
+<br><br>
 
-    🕐 <strong>Data e hora:</strong>
-    <span id="dataHora">--</span>
+🕐 <strong>Data e hora:</strong> <span id="dataHora">--</span>
 
 </div>
 
 <div class="grid">
 
-    <div class="info">
+<div class="info">
+<h3>TEMPERATURA</h3>
+<div class="temperatura" id="temperatura">-- °C</div>
+</div>
 
-        <h3>TEMPERATURA</h3>
+<div class="info">
+<h3>SITUAÇÃO</h3>
+<div class="risco normal" id="risco">AGUARDANDO</div>
+</div>
 
-        <div
-            class="temperatura"
-            id="temperatura">
-            -- °C
-        </div>
-
-    </div>
-
-    <div class="info">
-
-        <h3>SITUAÇÃO</h3>
-
-        <div
-            class="risco normal"
-            id="risco">
-            AGUARDANDO
-        </div>
-
-    </div>
-
-    <div class="info">
-
-        <h3>PRÓXIMA LEITURA</h3>
-
-        <div id="proxima">
-            Aguardando dados
-        </div>
-
-    </div>
+<div class="info">
+<h3>PRÓXIMA LEITURA</h3>
+<div id="proxima">Aguardando dados</div>
+</div>
 
 </div>
 
 <div class="acoes">
 
-    <button
-        class="btn"
-        onclick="conectarArduino()">
-        🔌 Conectar Arduino
-    </button>
+<button class="btn" onclick="conectarArduino()">
+🔌 Conectar Arduino
+</button>
 
-    <button
-        class="btn"
-        onclick="localizar()">
-        📍 Atualizar localização
-    </button>
+<button class="btn" onclick="localizar()">
+📍 Atualizar localização
+</button>
 
-    <button
-        class="btn"
-        onclick="testeTemperatura()">
-        🧪 Testar sensor
-    </button>
+<button class="btn" onclick="testeTemperatura()">
+🧪 Testar sensor
+</button>
 
-    <button
-        class="btn"
-        onclick="limparHistorico()">
-        🗑️ Limpar histórico
-    </button>
+<button class="btn" onclick="limparHistorico()">
+🗑️ Limpar histórico
+</button>
 
 </div>
 
 <div class="secao">
 
-    <h2>📊 Leituras da hora</h2>
+<h2>📊 Leituras da hora</h2>
 
-    <div class="tabela">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Horário</th>
-                    <th>Temperatura</th>
-                    <th>Situação</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="tabelaAtual"></tbody>
-
-        </table>
-
-    </div>
+<div class="tabela">
+<table>
+<thead>
+<tr>
+<th>Horário</th>
+<th>Temperatura</th>
+<th>Situação</th>
+</tr>
+</thead>
+<tbody id="tabelaAtual"></tbody>
+</table>
+</div>
 
 </div>
 
 <div class="secao">
 
-    <h2>🕐 Histórico por hora</h2>
+<h2>🕐 Histórico por hora</h2>
 
-    <div
-        class="tabela"
-        id="historico">
+<div class="tabela" id="historico">
 
-        <table>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Hora</th>
+<th>Mín.</th>
+<th>Máx.</th>
+<th>Média</th>
+<th>Situação</th>
+</tr>
+</thead>
 
-            <thead>
+<tbody id="tabelaHistorico"></tbody>
+</table>
 
-                <tr>
-                    <th>Data</th>
-                    <th>Hora</th>
-                    <th>Mín.</th>
-                    <th>Máx.</th>
-                    <th>Média</th>
-                    <th>Situação</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="tabelaHistorico"></tbody>
-
-        </table>
-
-    </div>
-
+</div>
 </div>
 
 <div class="secao">
 
-    <h2>🚨 Tabela de perigo</h2>
+<h2>🚨 Tabela de perigo</h2>
 
-    <div class="tabela">
+<div class="tabela">
 
-        <table>
+<table>
 
-            <thead>
+<thead>
+<tr>
+<th>Temperatura</th>
+<th>Nível</th>
+<th>Indicação</th>
+</tr>
+</thead>
 
-                <tr>
-                    <th>Temperatura</th>
-                    <th>Nível</th>
-                    <th>Indicação</th>
-                </tr>
+<tbody>
 
-            </thead>
+<tr>
+<td>≤ 25 °C</td>
+<td><span class="badge normal">NORMAL</span></td>
+<td>🟢 Condição normal</td>
+</tr>
 
-            <tbody>
+<tr>
+<td>26–29 °C</td>
+<td><span class="badge atencao">ATENÇÃO</span></td>
+<td>🔵 Temperatura elevada</td>
+</tr>
 
-                <tr>
-                    <td>≤ 25 °C</td>
-                    <td>
-                        <span class="badge normal">
-                            NORMAL
-                        </span>
-                    </td>
-                    <td>🟢 Condição normal</td>
-                </tr>
+<tr>
+<td>≥ 30 °C</td>
+<td><span class="badge perigo">PERIGO</span></td>
+<td>🔴 Possível risco</td>
+</tr>
 
-                <tr>
-                    <td>26–29 °C</td>
-                    <td>
-                        <span class="badge atencao">
-                            ATENÇÃO
-                        </span>
-                    </td>
-                    <td>🔵 Temperatura elevada</td>
-                </tr>
-
-                <tr>
-                    <td>≥ 30 °C</td>
-                    <td>
-                        <span class="badge perigo">
-                            PERIGO
-                        </span>
-                    </td>
-                    <td>🔴 Possível risco</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
+</tbody>
+</table>
 
 </div>
-
+</div>
 
 <div class="card" id="ia">
 
-    <div class="ia-topo">
+<div class="ia-topo">
 
-        <div class="ia-icone">🤖</div>
+<div class="ia-icone">🤖</div>
 
-        <div>
+<div>
+<div class="ia-nome">Forest Guard AI</div>
+<div class="ia-status">
+IA local • focada no monitoramento
+</div>
+</div>
 
-            <div class="ia-nome">
-                Forest Guard AI
-            </div>
+</div>
 
-            <div class="ia-status">
-                IA local • focada no monitoramento
-            </div>
+<div id="mensagens">
 
-        </div>
+<div class="msg bot">
 
-    </div>
+Olá! 🌲 Eu sou a Forest Guard AI.
 
-    <div id="mensagens">
+Posso conversar com você sobre
+a estação, temperatura, risco e
+histórico.
 
-        <div class="msg bot">
+Pode perguntar:
+"Como está a estação?"
+"Qual foi a maior temperatura?"
+"Está perigoso?"
+"A temperatura está subindo?"
 
-            Olá! 🌲 Eu sou a Forest Guard AI.
+</div>
 
-            Posso conversar com você sobre
-            a estação, temperatura, risco e
-            histórico.
+</div>
 
-            Pode perguntar:
-            "Como está a estação?"
-            "Qual foi a maior temperatura?"
-            "Está perigoso?"
-            "A temperatura está subindo?"
+<div class="atalhos">
 
-        </div>
+<button class="atalho" onclick="perguntar('Como está a estação?')">
+🌡️ Como está?
+</button>
 
-    </div>
+<button class="atalho" onclick="perguntar('Qual foi a maior temperatura?')">
+🔥 Maior temperatura
+</button>
 
-    <div class="atalhos">
+<button class="atalho" onclick="perguntar('A temperatura está subindo?')">
+📈 Está subindo?
+</button>
 
-        <button
-            class="atalho"
-            onclick="perguntar('Como está a estação?')">
-            🌡️ Como está?
-        </button>
+<button class="atalho" onclick="perguntar('Faça um resumo')">
+📊 Resumo
+</button>
 
-        <button
-            class="atalho"
-            onclick="perguntar('Qual foi a maior temperatura?')">
-            🔥 Maior temperatura
-        </button>
+</div>
 
-        <button
-            class="atalho"
-            onclick="perguntar('A temperatura está subindo?')">
-            📈 Está subindo?
-        </button>
+<div class="entrada-ia">
 
-        <button
-            class="atalho"
-            onclick="perguntar('Faça um resumo')">
-            📊 Resumo
-        </button>
+<input
+id="pergunta"
+placeholder="Converse com a Forest Guard AI..."
+onkeydown="if(event.key==='Enter') enviarPergunta()">
 
-    </div>
-
-    <div class="entrada-ia">
-
-        <input
-            id="pergunta"
-            placeholder="Converse com a Forest Guard AI..."
-            onkeydown="if(event.key==='Enter') enviarPergunta()">
-
-        <button
-            class="btn"
-            onclick="enviarPergunta()">
-            Enviar
-        </button>
-
-    </div>
+<button class="btn" onclick="enviarPergunta()">
+Enviar
+</button>
 
 </div>
 
 </div>
 
 </div>
+</div>
 
-<script> /* ============================================================ CONFIGURAÇÃO ============================================================ */ const INTERVALO_LEITURA = 2 * 60 * 1000; const EMAIL_SUPORTE = "davisgobatto@gmail.com"; const LIMITE_TENTATIVAS = 5; const TEMPO_BLOQUEIO = 30 * 1000; /* ============================================================ VARIÁVEIS ============================================================ */ let temperaturaAtual = null; let ultimaLeitura = 0; let leiturasHora = []; let grupoHora = ""; let porta = null; let leitor = null; let buffer = ""; let historico = JSON.parse( localStorage.getItem( "forestGuardHistorico" ) || "[]" ); /* ============================================================ SISTEMA DE CONTAS ============================================================ */ let contas = JSON.parse( localStorage.getItem( "forestGuardContas" ) || "{}" ); let tentativasLogin = parseInt( localStorage.getItem( "forestGuardTentativas" ) || "0" ); let bloqueioAte = parseInt( localStorage.getItem( "forestGuardBloqueio" ) || "0" ); let contaPendente = JSON.parse( localStorage.getItem( "forestGuardContaPendente" ) || "null" ); /* ============================================================ FUNÇÕES DO SISTEMA DE LOGIN ============================================================ */ function mostrarMensagem(id,texto,tipo){ const elemento = document.getElementById(id); elemento.textContent = texto; elemento.className = "mensagem-login " + tipo; } function limparMensagem(id){ const elemento = document.getElementById(id); elemento.textContent = ""; elemento.className = "mensagem-login"; } function mostrarLogin(){ document.getElementById("login").style.display="block"; document.getElementById("cadastro").style.display="none"; document.getElementById("verificacao").style.display="none"; document.getElementById("painel").style.display="none"; limparMensagem("mensagemLogin"); } function mostrarCadastro(){ document.getElementById("login").style.display="none"; document.getElementById("cadastro").style.display="block"; document.getElementById("verificacao").style.display="none"; document.getElementById("painel").style.display="none"; limparMensagem("mensagemCadastro"); } function mostrarVerificacao(email){ document.getElementById("login").style.display="none"; document.getElementById("cadastro").style.display="none"; document.getElementById("verificacao").style.display="block"; document.getElementById("painel").style.display="none"; document.getElementById( "emailVerificacao" ).textContent = email; } /* ============================================================ GERAR CÓDIGO ============================================================ */ function gerarCodigo(){ return String( Math.floor( 100000 + Math.random()*900000 ) ); } /* ============================================================ CADASTRO ============================================================ */ function cadastrar(){ const email = document.getElementById( "cadastroEmail" ).value.trim().toLowerCase(); const senha = document.getElementById( "cadastroSenha" ).value; const confirmar = document.getElementById( "cadastroConfirmar" ).value; if(!email){ mostrarMensagem( "mensagemCadastro", "Digite seu e-mail.", "erro" ); return; } if(!email.includes("@") || !email.includes(".")){ mostrarMensagem( "mensagemCadastro", "Digite um e-mail válido.", "erro" ); return; } if(senha.length < 6){ mostrarMensagem( "mensagemCadastro", "A senha precisa ter pelo menos 6 caracteres.", "erro" ); return; } if(senha !== confirmar){ mostrarMensagem( "mensagemCadastro", "As senhas não são iguais.", "erro" ); return; } if(contas[email]){ mostrarMensagem( "mensagemCadastro", "Este e-mail já possui uma conta.", "erro" ); return; } const codigo = gerarCodigo(); contaPendente = { email:email, senha:senha, codigo:codigo, criadaEm:Date.now() }; localStorage.setItem( "forestGuardContaPendente", JSON.stringify(contaPendente) ); mostrarVerificacao(email); /* DEMONSTRAÇÃO LOCAL Como o GitHub Pages não possui servidor para enviar e-mail, o código é exibido para o teste. Depois podemos substituir esta parte pelo Firebase Authentication. */ setTimeout(()=>{ alert( "CÓDIGO DE VERIFICAÇÃO DO FOREST GUARD\n\n" + codigo + "\n\n" + "Este código está sendo exibido apenas porque o envio real de e-mail ainda não foi configurado." ); },200); } /* ============================================================ VERIFICAR CÓDIGO ============================================================ */ function verificarCodigo(){ if(!contaPendente){ mostrarMensagem( "mensagemVerificacao", "Nenhum cadastro pendente.", "erro" ); return; } const codigoDigitado = document.getElementById( "codigoVerificacao" ).value.trim(); if(codigoDigitado !== contaPendente.codigo){ mostrarMensagem( "mensagemVerificacao", "Código incorreto.", "erro" ); return; } contas[contaPendente.email] = { senha:contaPendente.senha, verificado:true, criadoEm:Date.now() }; localStorage.setItem( "forestGuardContas", JSON.stringify(contas) ); localStorage.removeItem( "forestGuardContaPendente" ); contaPendente = null; mostrarMensagem( "mensagemVerificacao", "E-mail verificado! Sua conta foi criada.", "sucesso" ); setTimeout(()=>{ document.getElementById( "email" ).value = document.getElementById( "cadastroEmail" ).value.trim().toLowerCase(); document.getElementById( "senha" ).value = ""; mostrarLogin(); mostrarMensagem( "mensagemLogin", "Conta criada com sucesso. Agora faça login.", "sucesso" ); },1200); } /* ============================================================ BLOQUEIO ============================================================ */ function verificarBloqueio(){ const agora = Date.now(); if(bloqueioAte > agora){ const restante = Math.ceil( (bloqueioAte-agora)/1000 ); mostrarMensagem( "mensagemLogin", "🔒 Muitas tentativas. Aguarde " + restante + " segundos.", "erro" ); return true; } if( bloqueioAte !== 0 && bloqueioAte <= agora ){ bloqueioAte = 0; tentativasLogin = 0; localStorage.setItem( "forestGuardBloqueio", "0" ); localStorage.setItem( "forestGuardTentativas", "0" ); } return false; } /* ============================================================ CONTADOR DE TENTATIVAS ============================================================ */ function registrarErroLogin(){ tentativasLogin++; localStorage.setItem( "forestGuardTentativas", String(tentativasLogin) ); if( tentativasLogin >= LIMITE_TENTATIVAS ){ bloqueioAte = Date.now() + TEMPO_BLOQUEIO; localStorage.setItem( "forestGuardBloqueio", String(bloqueioAte) ); mostrarMensagem( "mensagemLogin", "🔒 Você errou 5 vezes. Login bloqueado por 30 segundos.", "erro" ); return; } const restantes = LIMITE_TENTATIVAS - tentativasLogin; mostrarMensagem( "mensagemLogin", "❌ E-mail ou senha incorretos. Restam " + restantes + " tentativa(s).", "erro" ); } /* ============================================================ ENTRAR ============================================================ */ function entrar(){ if(verificarBloqueio()) return; const email = document.getElementById( "email" ).value.trim().toLowerCase(); const senha = document.getElementById( "senha" ).value; if(!email || !senha){ mostrarMensagem( "mensagemLogin", "Digite o e-mail e a senha.", "erro" ); return; } const conta = contas[email]; if(!conta){ registrarErroLogin(); if( tentativasLogin > LIMITE_TENTATIVAS ){ mostrarMensagem( "mensagemLogin", "🚨 Muitas falhas de login. Entre em contato com o suporte: " + EMAIL_SUPORTE, "erro" ); } return; } if(!conta.verificado){ mostrarMensagem( "mensagemLogin", "📧 Seu e-mail ainda não foi verificado.", "erro" ); return; } if(conta.senha !== senha){ registrarErroLogin(); if( tentativasLogin > LIMITE_TENTATIVAS ){ mostrarMensagem( "mensagemLogin", "🚨 Muitas falhas de login. Entre em contato com o suporte: " + EMAIL_SUPORTE, "erro" ); } return; } tentativasLogin = 0; bloqueioAte = 0; localStorage.setItem( "forestGuardTentativas", "0" ); localStorage.setItem( "forestGuardBloqueio", "0" ); document.getElementById( "login" ).style.display="none"; document.getElementById( "cadastro" ).style.display="none"; document.getElementById( "verificacao" ).style.display="none"; document.getElementById( "painel" ).style.display="block"; localizar(); atualizarHistorico(); } /* ============================================================ RELÓGIO ============================================================ */ function atualizarRelogio(){ const agora = new Date(); document.getElementById( "relogio" ).textContent = agora.toLocaleTimeString("pt-BR"); document.getElementById( "dataHora" ).textContent = agora.toLocaleDateString("pt-BR") + " " + agora.toLocaleTimeString("pt-BR"); atualizarContador(); } setInterval( atualizarRelogio, 1000 ); atualizarRelogio(); /* ============================================================ LOCALIZAÇÃO ============================================================ */ function localizar(){ const campo = document.getElementById( "localizacao" ); if(!navigator.geolocation){ campo.textContent = "Geolocalização não disponível"; return; } campo.textContent = "Obtendo localização..."; navigator.geolocation.getCurrentPosition( pos => { campo.textContent = pos.coords.latitude.toFixed(5) + ", " + pos.coords.longitude.toFixed(5); }, () => { campo.textContent = "Permissão não concedida"; } ); } /* ============================================================ RISCO ============================================================ */ function risco(temp){ if(temp <= 25) return "NORMAL"; if(temp <= 29) return "ATENCAO"; return "PERIGO"; } function classe(status){ if(status === "NORMAL") return "normal"; if(status === "ATENCAO") return "atencao"; return "perigo"; } /* ============================================================ MOSTRAR TEMPERATURA ============================================================ */ function mostrarTemperatura(temp){ temperaturaAtual = temp; document.getElementById( "temperatura" ).textContent = temp.toFixed(1) + " °C"; const status = risco(temp); const elemento = document.getElementById( "risco" ); elemento.textContent = status; elemento.className = "risco " + classe(status); salvarLeitura(temp); } /* ============================================================ SALVAR LEITURA ============================================================ */ function salvarLeitura(temp){ const agora = Date.now(); if( ultimaLeitura !== 0 && agora - ultimaLeitura < INTERVALO_LEITURA ){ return; } ultimaLeitura = agora; const data = new Date(); const hora = String( data.getHours() ).padStart(2,"0") + ":00"; if( grupoHora && grupoHora !== hora ){ fecharHora(); leiturasHora = []; document.getElementById( "tabelaAtual" ).innerHTML=""; } grupoHora = hora; const leitura = { data: data.toLocaleDateString( "pt-BR" ), hora: data.toLocaleTimeString( "pt-BR" ), temperatura: temp, status: risco(temp) }; leiturasHora.push( leitura ); const linha = document.createElement("tr"); linha.innerHTML = ` <td>${leitura.hora}</td> <td>${temp.toFixed(1)} °C</td> <td> <span class="badge ${classe(leitura.status)}"> ${leitura.status} </span> </td> `; document .getElementById( "tabelaAtual" ) .prepend(linha); } /* ============================================================ FECHAR HORA ============================================================ */ function fecharHora(){ if(!leiturasHora.length) return; const valores = leiturasHora.map( x=>x.temperatura ); const minimo = Math.min(...valores); const maximo = Math.max(...valores); const media = valores.reduce( (a,b)=>a+b, 0 ) / valores.length; let status = "NORMAL"; if(maximo >= 30) status="PERIGO"; else if(maximo > 25) status="ATENCAO"; const resumo = { data: leiturasHora[0].data, hora: grupoHora, minimo: minimo, maximo: maximo, media: media, status: status }; historico.push( resumo ); localStorage.setItem( "forestGuardHistorico", JSON.stringify( historico ) ); atualizarHistorico(); } /* ============================================================ HISTÓRICO ============================================================ */ function atualizarHistorico(){ const tabela = document.getElementById( "tabelaHistorico" ); tabela.innerHTML=""; historico .slice() .reverse() .forEach(item=>{ const linha = document.createElement( "tr" ); linha.innerHTML=` <td>${item.data}</td> <td>${item.hora}</td> <td>${item.minimo.toFixed(1)} °C</td> <td>${item.maximo.toFixed(1)} °C</td> <td>${item.media.toFixed(1)} °C</td> <td> <span class="badge ${classe(item.status)}"> ${item.status} </span> </td> `; tabela.appendChild( linha ); }); } /* ============================================================ CONTADOR ============================================================ */ function atualizarContador(){ if(!ultimaLeitura){ document.getElementById( "proxima" ).textContent = "Aguardando primeira leitura"; return; } const restante = INTERVALO_LEITURA - ( Date.now() - ultimaLeitura ); if(restante <= 0){ document.getElementById( "proxima" ).textContent = "Pronta para leitura"; return; } const minutos = Math.floor( restante/60000 ); const segundos = Math.floor( (restante%60000)/1000 ); document.getElementById( "proxima" ).textContent = String(minutos).padStart( 2,"0" ) + ":" + String(segundos).padStart( 2,"0" ); } /* ============================================================ TESTE ============================================================ */ function testeTemperatura(){ const temp = Math.floor( Math.random()*16 ) + 20; mostrarTemperatura( temp ); } /* ============================================================ ARDUINO ============================================================ */ async function conectarArduino(){ if(!("serial" in navigator)){ alert( "O Web Serial precisa do Google Chrome ou navegador compatível." ); return; } try{ porta = await navigator.serial.requestPort(); await porta.open({ baudRate:9600 }); document.getElementById( "status" ).textContent = "🟢 Arduino conectado"; document.getElementById( "status" ).classList.add("ok"); lerArduino(); } catch(erro){ console.error( erro ); alert( "Não foi possível conectar ao Arduino." ); } } /* ============================================================ LEITURA SERIAL ============================================================ */ async function lerArduino(){ leitor = porta.readable.getReader(); const decoder = new TextDecoder(); try{ while(true){ const { value, done } = await leitor.read(); if(done) break; if(value){ buffer += decoder.decode( value ); const linhas = buffer.split( "\n" ); buffer = linhas.pop(); linhas.forEach( processarArduino ); } } } catch(erro){ console.error( "Erro Arduino:", erro ); } } /* ============================================================ PROCESSAR ARDUINO ============================================================ */ function processarArduino(linha){ linha = linha.trim(); if(!linha) return; if(!linha.startsWith("TEMP=")) return; const valor = parseFloat( linha.replace( "TEMP=", "" ) ); if(isNaN(valor)) return; mostrarTemperatura( valor ); } /* ============================================================ LIMPAR HISTÓRICO ============================================================ */ function limparHistorico(){ if( !confirm( "Apagar todo o histórico?" ) ) return; historico=[]; leiturasHora=[]; localStorage.removeItem( "forestGuardHistorico" ); document.getElementById( "tabelaHistorico" ).innerHTML=""; document.getElementById( "tabelaAtual" ).innerHTML=""; } /* ============================================================ FOREST GUARD AI ============================================================ */ function adicionarMensagem( texto, tipo ){ const mensagens = document.getElementById( "mensagens" ); const div = document.createElement( "div" ); div.className = "msg " + tipo; div.textContent = texto; mensagens.appendChild( div ); mensagens.scrollTop = mensagens.scrollHeight; } function enviarPergunta(){ const input = document.getElementById( "pergunta" ); const pergunta = input.value.trim(); if(!pergunta) return; adicionarMensagem( pergunta, "usuario" ); input.value=""; setTimeout( ()=>responderIA(pergunta), 250 ); } function perguntar(texto){ document.getElementById( "pergunta" ).value=texto; enviarPergunta(); } /* ============================================================ CÉREBRO LEVE DA IA ============================================================ */ function responderIA(pergunta){ const p = pergunta .toLowerCase() .normalize("NFD") .replace( /[\u0300-\u036f]/g, "" ); let resposta=""; if( p.includes("como esta") || p.includes("situacao") || p.includes("estacao") || p.includes("agora") ){ if( temperaturaAtual === null ){ resposta = "Ainda não recebi uma temperatura do sensor. 🌲 Conecte o Arduino ou use o botão de teste."; } else{ const r = risco( temperaturaAtual ); resposta = "Agora a estação está em " + temperaturaAtual.toFixed(1) + " °C. O nível atual é " + r + ". "; if(r==="NORMAL") resposta += "A temperatura está dentro da faixa normal."; else if(r==="ATENCAO") resposta += "A temperatura está elevada e merece atenção."; else resposta += "A temperatura atingiu a faixa de perigo."; } } else if( p.includes("maior") || p.includes("maxima") || p.includes("mais quente") ){ const valores = historico .map(x=>x.maximo) .concat( leiturasHora.map( x=>x.temperatura ) ); if( temperaturaAtual !== null ) valores.push( temperaturaAtual ); if(!valores.length){ resposta = "Ainda não tenho histórico suficiente para descobrir a maior temperatura."; } else{ resposta = "A maior temperatura registrada pelo Forest Guard até agora foi " + Math.max( ...valores ).toFixed(1) + " °C. 🔥"; } } else if( p.includes("menor") || p.includes("minima") || p.includes("mais fria") ){ const valores = historico .map(x=>x.minimo) .concat( leiturasHora.map( x=>x.temperatura ) ); if(!valores.length){ resposta = "Ainda não tenho dados suficientes."; } else{ resposta = "A menor temperatura registrada foi " + Math.min( ...valores ).toFixed(1) + " °C. ❄️"; } } else if( p.includes("subindo") || p.includes("aumentando") || p.includes("aumento") ){ if( leiturasHora.length < 2 ){ resposta = "Ainda preciso de pelo menos duas leituras para analisar uma tendência."; } else{ const primeira = leiturasHora[0] .temperatura; const ultima = leiturasHora[ leiturasHora.length-1 ] .temperatura; if(ultima > primeira){ resposta = "Sim. 📈 A temperatura está subindo. A primeira leitura desta hora foi " + primeira.toFixed(1) + " °C e a última foi " + ultima.toFixed(1) + " °C."; } else if( ultima < primeira ){ resposta = "Não. 📉 A temperatura está diminuindo. Ela passou de " + primeira.toFixed(1) + " °C para " + ultima.toFixed(1) + " °C."; } else{ resposta = "A temperatura está praticamente estável nesta hora."; } } } else if( p.includes("resumo") || p.includes("historico") ){ if(!historico.length){ resposta = "Ainda não existe uma hora fechada no histórico. Continue coletando dados e eu poderei analisar."; } else{ const ultimo = historico[ historico.length-1 ]; resposta = "📊 Resumo da última hora registrada: " + "mínima de " + ultimo.minimo.toFixed(1) + " °C, máxima de " + ultimo.maximo.toFixed(1) + " °C e média de " + ultimo.media.toFixed(1) + " °C. Situação: " + ultimo.status + "."; } } else if( p.includes("perigo") || p.includes("risco") || p.includes("seguro") ){ if( temperaturaAtual === null ){ resposta = "Ainda não recebi a temperatura atual."; } else{ const r = risco( temperaturaAtual ); resposta = "Com " + temperaturaAtual.toFixed(1) + " °C, a classificação atual é " + r + "."; } } else if( p.includes("oi") || p.includes("ola") || p.includes("hello") || p.includes("bom dia") || p.includes("boa tarde") || p.includes("boa noite") ){ resposta = "Olá! 🌲 Estou aqui. Pode conversar comigo sobre o Forest Guard, temperatura, risco, histórico ou funcionamento da estação."; } else if( p.includes("quem e voce") || p.includes("o que voce e") ){ resposta = "Eu sou a Forest Guard AI, a assistente do seu sistema de monitoramento ambiental. Minha função é interpretar os dados da estação e conversar com você sobre eles. 🌲🤖"; } else if( p.includes("temperatura") ){ if( temperaturaAtual === null ){ resposta = "Ainda não recebi nenhuma temperatura."; } else{ resposta = "A temperatura atual registrada é " + temperaturaAtual.toFixed(1) + " °C."; } } else{ resposta = "Entendi o que você disse, mas ainda estou aprendendo essa pergunta. 🌲 Tente perguntar sobre a temperatura, risco, maior temperatura, histórico ou situação da estação."; } adicionarMensagem( resposta, "bot" ); } /* ============================================================ INICIALIZAÇÃO ============================================================ */ atualizarHistorico(); </script>
+<script>
 
-</body> </html>
+/* ============================================================
+CONFIGURAÇÃO
+============================================================ */
+
+const INTERVALO_LEITURA = 2 * 60 * 1000;
+
+const EMAIL_SUPORTE = "davisgobatto@gmail.com";
+
+const LIMITE_TENTATIVAS = 5;
+
+const TEMPO_BLOQUEIO = 30 * 1000;
+
+/* EMAILJS */
+
+const EMAILJS_PUBLIC_KEY = "3VKE9f-uIWaVsK3gV";
+
+const EMAILJS_SERVICE_ID = "service_jn1xv5g";
+
+const EMAILJS_TEMPLATE_ID = "template_ynkxnpa";
+
+/* ============================================================
+INICIALIZAR EMAILJS
+============================================================ */
+
+emailjs.init({
+publicKey: EMAILJS_PUBLIC_KEY
+});
+
+/* ============================================================
+VARIÁVEIS
+============================================================ */
+
+let temperaturaAtual = null;
+
+let ultimaLeitura = 0;
+
+let leiturasHora = [];
+
+let grupoHora = "";
+
+let porta = null;
+
+let leitor = null;
+
+let buffer = "";
+
+let historico = JSON.parse(
+localStorage.getItem("forestGuardHistorico") || "[]"
+);
+
+/* ============================================================
+SISTEMA DE CONTAS
+============================================================ */
+
+let contas = JSON.parse(
+localStorage.getItem("forestGuardContas") || "{}"
+);
+
+let tentativasLogin = parseInt(
+localStorage.getItem("forestGuardTentativas") || "0"
+);
+
+let bloqueioAte = parseInt(
+localStorage.getItem("forestGuardBloqueio") || "0"
+);
+
+let contaPendente = JSON.parse(
+localStorage.getItem("forestGuardContaPendente") || "null"
+);
+
+/* ============================================================
+MENSAGENS
+============================================================ */
+
+function mostrarMensagem(id,texto,tipo){
+
+const elemento = document.getElementById(id);
+
+elemento.textContent = texto;
+
+elemento.className = "mensagem-login " + tipo;
+
+}
+
+function limparMensagem(id){
+
+const elemento = document.getElementById(id);
+
+elemento.textContent = "";
+
+elemento.className = "mensagem-login";
+
+}
+
+/* ============================================================
+TELAS
+============================================================ */
+
+function mostrarLogin(){
+
+document.getElementById("login").style.display="block";
+
+document.getElementById("cadastro").style.display="none";
+
+document.getElementById("verificacao").style.display="none";
+
+document.getElementById("painel").style.display="none";
+
+limparMensagem("mensagemLogin");
+
+}
+
+function mostrarCadastro(){
+
+document.getElementById("login").style.display="none";
+
+document.getElementById("cadastro").style.display="block";
+
+document.getElementById("verificacao").style.display="none";
+
+document.getElementById("painel").style.display="none";
+
+limparMensagem("mensagemCadastro");
+
+}
+
+function mostrarVerificacao(email){
+
+document.getElementById("login").style.display="none";
+
+document.getElementById("cadastro").style.display="none";
+
+document.getElementById("verificacao").style.display="block";
+
+document.getElementById("painel").style.display="none";
+
+document.getElementById("emailVerificacao").textContent=email;
+
+}
+
+/* ============================================================
+GERAR CÓDIGO ALEATÓRIO
+============================================================ */
+
+function gerarCodigo(){
+
+return String(
+Math.floor(100000 + Math.random() * 900000)
+);
+
+}
+
+/* ============================================================
+ENVIAR CÓDIGO POR EMAIL
+============================================================ */
+
+async function enviarCodigoEmail(email,codigo){
+
+try{
+
+mostrarMensagem(
+"mensagemVerificacao",
+"📧 Enviando código para " + email + "...",
+"sucesso"
+);
+
+const resposta = await emailjs.send(
+EMAILJS_SERVICE_ID,
+EMAILJS_TEMPLATE_ID,
+{
+to_email: email,
+verification_code: codigo
+}
+);
+
+console.log("EmailJS:", resposta);
+
+mostrarMensagem(
+"mensagemVerificacao",
+"✅ Código enviado para " + email + "!",
+"sucesso"
+);
+
+return true;
+
+}catch(erro){
+
+console.error("Erro EmailJS:",erro);
+
+mostrarMensagem(
+"mensagemVerificacao",
+"❌ Não foi possível enviar o e-mail. Verifique o Template do EmailJS.",
+"erro"
+);
+
+return false;
+
+}
+
+}
+
+/* ============================================================
+CADASTRO
+============================================================ */
+
+async function cadastrar(){
+
+const email =
+document.getElementById("cadastroEmail")
+.value
+.trim()
+.toLowerCase();
+
+const senha =
+document.getElementById("cadastroSenha")
+.value;
+
+const confirmar =
+document.getElementById("cadastroConfirmar")
+.value;
+
+if(!email){
+
+mostrarMensagem(
+"mensagemCadastro",
+"Digite seu e-mail.",
+"erro"
+);
+
+return;
+
+}
+
+if(!email.includes("@") || !email.includes(".")){
+
+mostrarMensagem(
+"mensagemCadastro",
+"Digite um e-mail válido.",
+"erro"
+);
+
+return;
+
+}
+
+if(senha.length < 6){
+
+mostrarMensagem(
+"mensagemCadastro",
+"A senha precisa ter pelo menos 6 caracteres.",
+"erro"
+);
+
+return;
+
+}
+
+if(senha !== confirmar){
+
+mostrarMensagem(
+"mensagemCadastro",
+"As senhas não são iguais.",
+"erro"
+);
+
+return;
+
+}
+
+if(contas[email]){
+
+mostrarMensagem(
+"mensagemCadastro",
+"Este e-mail já possui uma conta.",
+"erro"
+);
+
+return;
+
+}
+
+/* GERA UM NOVO CÓDIGO TODA VEZ */
+
+const codigo = gerarCodigo();
+
+contaPendente = {
+
+email: email,
+
+senha: senha,
+
+codigo: codigo,
+
+criadaEm: Date.now()
+
+};
+
+localStorage.setItem(
+"forestGuardContaPendente",
+JSON.stringify(contaPendente)
+);
+
+mostrarVerificacao(email);
+
+/* ENVIA PELO EMAILJS */
+
+const enviado =
+await enviarCodigoEmail(email,codigo);
+
+if(!enviado){
+
+return;
+
+}
+
+}
+
+/* ============================================================
+VERIFICAR CÓDIGO
+============================================================ */
+
+function verificarCodigo(){
+
+if(!contaPendente){
+
+mostrarMensagem(
+"mensagemVerificacao",
+"Nenhum cadastro pendente.",
+"erro"
+);
+
+return;
+
+}
+
+const codigoDigitado =
+document.getElementById("codigoVerificacao")
+.value
+.trim();
+
+if(!/^\d{6}$/.test(codigoDigitado)){
+
+mostrarMensagem(
+"mensagemVerificacao",
+"Digite o código de 6 números.",
+"erro"
+);
+
+return;
+
+}
+
+if(codigoDigitado !== contaPendente.codigo){
+
+mostrarMensagem(
+"mensagemVerificacao",
+"❌ Código incorreto.",
+"erro"
+);
+
+return;
+
+}
+
+contas[contaPendente.email] = {
+
+senha: contaPendente.senha,
+
+verificado: true,
+
+criadoEm: Date.now()
+
+};
+
+localStorage.setItem(
+"forestGuardContas",
+JSON.stringify(contas)
+);
+
+localStorage.removeItem(
+"forestGuardContaPendente"
+);
+
+const emailCriado =
+contaPendente.email;
+
+contaPendente = null;
+
+mostrarMensagem(
+"mensagemVerificacao",
+"✅ E-mail verificado! Sua conta foi criada.",
+"sucesso"
+);
+
+setTimeout(()=>{
+
+document.getElementById("email").value =
+emailCriado;
+
+document.getElementById("senha").value = "";
+
+mostrarLogin();
+
+mostrarMensagem(
+"mensagemLogin",
+"Conta criada com sucesso. Agora faça login.",
+"sucesso"
+);
+
+},1200);
+
+}
+
+/* ============================================================
+BLOQUEIO
+============================================================ */
+
+function verificarBloqueio(){
+
+const agora = Date.now();
+
+if(bloqueioAte > agora){
+
+const restante =
+Math.ceil((bloqueioAte-agora)/1000);
+
+mostrarMensagem(
+"mensagemLogin",
+"🔒 Muitas tentativas. Aguarde " +
+restante +
+" segundos.",
+"erro"
+);
+
+return true;
+
+}
+
+if(
+bloqueioAte !== 0 &&
+bloqueioAte <= agora
+){
+
+bloqueioAte = 0;
+
+tentativasLogin = 0;
+
+localStorage.setItem(
+"forestGuardBloqueio",
+"0"
+);
+
+localStorage.setItem(
+"forestGuardTentativas",
+"0"
+);
+
+}
+
+return false;
+
+}
+
+/* ============================================================
+CONTADOR DE TENTATIVAS
+============================================================ */
+
+function registrarErroLogin(){
+
+tentativasLogin++;
+
+localStorage.setItem(
+"forestGuardTentativas",
+String(tentativasLogin)
+);
+
+if(tentativasLogin >= LIMITE_TENTATIVAS){
+
+bloqueioAte =
+Date.now() + TEMPO_BLOQUEIO;
+
+localStorage.setItem(
+"forestGuardBloqueio",
+String(bloqueioAte)
+);
+
+mostrarMensagem(
+"mensagemLogin",
+"🔒 Você errou 5 vezes. Login bloqueado por 30 segundos.",
+"erro"
+);
+
+return;
+
+}
+
+const restantes =
+LIMITE_TENTATIVAS - tentativasLogin;
+
+mostrarMensagem(
+"mensagemLogin",
+"❌ E-mail ou senha incorretos. Restam " +
+restantes +
+" tentativa(s).",
+"erro"
+);
+
+}
+
+/* ============================================================
+ENTRAR
+============================================================ */
+
+function entrar(){
+
+if(verificarBloqueio()) return;
+
+const email =
+document.getElementById("email")
+.value
+.trim()
+.toLowerCase();
+
+const senha =
+document.getElementById("senha")
+.value;
+
+if(!email || !senha){
+
+mostrarMensagem(
+"mensagemLogin",
+"Digite o e-mail e a senha.",
+"erro"
+);
+
+return;
+
+}
+
+const conta = contas[email];
+
+if(!conta){
+
+registrarErroLogin();
+
+return;
+
+}
+
+if(!conta.verificado){
+
+mostrarMensagem(
+"mensagemLogin",
+"📧 Seu e-mail ainda não foi verificado.",
+"erro"
+);
+
+return;
+
+}
+
+if(conta.senha !== senha){
+
+registrarErroLogin();
+
+return;
+
+}
+
+tentativasLogin = 0;
+
+bloqueioAte = 0;
+
+localStorage.setItem(
+"forestGuardTentativas",
+"0"
+);
+
+localStorage.setItem(
+"forestGuardBloqueio",
+"0"
+);
+
+document.getElementById("login").style.display="none";
+
+document.getElementById("cadastro").style.display="none";
+
+document.getElementById("verificacao").style.display="none";
+
+document.getElementById("painel").style.display="block";
+
+localizar();
+
+atualizarHistorico();
+
+}
+
+/* ============================================================
+RELÓGIO
+============================================================ */
+
+function atualizarRelogio(){
+
+const agora = new Date();
+
+document.getElementById("relogio")
+.textContent =
+agora.toLocaleTimeString("pt-BR");
+
+document.getElementById("dataHora")
+.textContent =
+agora.toLocaleDateString("pt-BR") +
+" " +
+agora.toLocaleTimeString("pt-BR");
+
+atualizarContador();
+
+}
+
+setInterval(atualizarRelogio,1000);
+
+atualizarRelogio();
+
+/* ============================================================
+LOCALIZAÇÃO
+============================================================ */
+
+function localizar(){
+
+const campo =
+document.getElementById("localizacao");
+
+if(!navigator.geolocation){
+
+campo.textContent =
+"Geolocalização não disponível";
+
+return;
+
+}
+
+campo.textContent =
+"Obtendo localização...";
+
+navigator.geolocation.getCurrentPosition(
+
+pos=>{
+
+campo.textContent =
+pos.coords.latitude.toFixed(5) +
+", " +
+pos.coords.longitude.toFixed(5);
+
+},
+
+()=>{
+
+campo.textContent =
+"Permissão não concedida";
+
+}
+
+);
+
+}
+
+/* ============================================================
+RISCO
+============================================================ */
+
+function risco(temp){
+
+if(temp <= 25) return "NORMAL";
+
+if(temp <= 29) return "ATENCAO";
+
+return "PERIGO";
+
+}
+
+function classe(status){
+
+if(status === "NORMAL") return "normal";
+
+if(status === "ATENCAO") return "atencao";
+
+return "perigo";
+
+}
+
+/* ============================================================
+TEMPERATURA
+============================================================ */
+
+function mostrarTemperatura(temp){
+
+temperaturaAtual = temp;
+
+document.getElementById("temperatura")
+.textContent =
+temp.toFixed(1) + " °C";
+
+const status = risco(temp);
+
+const elemento =
+document.getElementById("risco");
+
+elemento.textContent = status;
+
+elemento.className =
+"risco " + classe(status);
+
+salvarLeitura(temp);
+
+}
+
+/* ============================================================
+SALVAR LEITURA
+============================================================ */
+
+function salvarLeitura(temp){
+
+const agora = Date.now();
+
+if(
+ultimaLeitura !== 0 &&
+agora - ultimaLeitura < INTERVALO_LEITURA
+){
+
+return;
+
+}
+
+ultimaLeitura = agora;
+
+const data = new Date();
+
+const hora =
+String(data.getHours()).padStart(2,"0") +
+":00";
+
+if(
+grupoHora &&
+grupoHora !== hora
+){
+
+fecharHora();
+
+leiturasHora = [];
+
+document.getElementById(
+"tabelaAtual"
+).innerHTML="";
+
+}
+
+grupoHora = hora;
+
+const leitura = {
+
+data:data.toLocaleDateString("pt-BR"),
+
+hora:data.toLocaleTimeString("pt-BR"),
+
+temperatura:temp,
+
+status:risco(temp)
+
+};
+
+leiturasHora.push(leitura);
+
+const linha =
+document.createElement("tr");
+
+linha.innerHTML = `
+
+<td>${leitura.hora}</td>
+
+<td>${temp.toFixed(1)} °C</td>
+
+<td>
+<span class="badge ${classe(leitura.status)}">
+${leitura.status}
+</span>
+</td>
+
+`;
+
+document
+.getElementById("tabelaAtual")
+.prepend(linha);
+
+}
+
+/* ============================================================
+FECHAR HORA
+============================================================ */
+
+function fecharHora(){
+
+if(!leiturasHora.length) return;
+
+const valores =
+leiturasHora.map(x=>x.temperatura);
+
+const minimo =
+Math.min(...valores);
+
+const maximo =
+Math.max(...valores);
+
+const media =
+valores.reduce((a,b)=>a+b,0) /
+valores.length;
+
+let status = "NORMAL";
+
+if(maximo >= 30)
+status = "PERIGO";
+
+else if(maximo > 25)
+status = "ATENCAO";
+
+const resumo = {
+
+data:leiturasHora[0].data,
+
+hora:grupoHora,
+
+minimo:minimo,
+
+maximo:maximo,
+
+media:media,
+
+status:status
+
+};
+
+historico.push(resumo);
+
+localStorage.setItem(
+"forestGuardHistorico",
+JSON.stringify(historico)
+);
+
+atualizarHistorico();
+
+}
+
+/* ============================================================
+HISTÓRICO
+============================================================ */
+
+function atualizarHistorico(){
+
+const tabela =
+document.getElementById("tabelaHistorico");
+
+tabela.innerHTML="";
+
+historico
+.slice()
+.reverse()
+.forEach(item=>{
+
+const linha =
+document.createElement("tr");
+
+linha.innerHTML = `
+
+<td>${item.data}</td>
+
+<td>${item.hora}</td>
+
+<td>${item.minimo.toFixed(1)} °C</td>
+
+<td>${item.maximo.toFixed(1)} °C</td>
+
+<td>${item.media.toFixed(1)} °C</td>
+
+<td>
+<span class="badge ${classe(item.status)}">
+${item.status}
+</span>
+</td>
+
+`;
+
+tabela.appendChild(linha);
+
+});
+
+}
+
+/* ============================================================
+CONTADOR
+============================================================ */
+
+function atualizarContador(){
+
+if(!ultimaLeitura){
+
+document.getElementById("proxima")
+.textContent =
+"Aguardando primeira leitura";
+
+return;
+
+}
+
+const restante =
+INTERVALO_LEITURA -
+(Date.now() - ultimaLeitura);
+
+if(restante <= 0){
+
+document.getElementById("proxima")
+.textContent =
+"Pronta para leitura";
+
+return;
+
+}
+
+const minutos =
+Math.floor(restante/60000);
+
+const segundos =
+Math.floor((restante%60000)/1000);
+
+document.getElementById("proxima")
+.textContent =
+String(minutos).padStart(2,"0") +
+":" +
+String(segundos).padStart(2,"0");
+
+}
+
+/* ============================================================
+TESTE
+============================================================ */
+
+function testeTemperatura(){
+
+const temp =
+Math.floor(Math.random()*16)+20;
+
+mostrarTemperatura(temp);
+
+}
+
+/* ============================================================
+ARDUINO
+============================================================ */
+
+async function conectarArduino(){
+
+if(!("serial" in navigator)){
+
+alert(
+"O Web Serial precisa do Google Chrome ou navegador compatível."
+);
+
+return;
+
+}
+
+try{
+
+porta =
+await navigator.serial.requestPort();
+
+await porta.open({
+baudRate:9600
+});
+
+document.getElementById("status")
+.textContent =
+"🟢 Arduino conectado";
+
+document.getElementById("status")
+.classList.add("ok");
+
+lerArduino();
+
+}catch(erro){
+
+console.error(erro);
+
+alert(
+"Não foi possível conectar ao Arduino."
+);
+
+}
+
+}
+
+/* ============================================================
+LEITURA SERIAL
+============================================================ */
+
+async function lerArduino(){
+
+leitor =
+porta.readable.getReader();
+
+const decoder =
+new TextDecoder();
+
+try{
+
+while(true){
+
+const {value,done} =
+await leitor.read();
+
+if(done) break;
+
+if(value){
+
+buffer +=
+decoder.decode(value);
+
+const linhas =
+buffer.split("\n");
+
+buffer =
+linhas.pop();
+
+linhas.forEach(
+processarArduino
+);
+
+}
+
+}
+
+}catch(erro){
+
+console.error(
+"Erro Arduino:",
+erro
+);
+
+}
+
+}
+
+/* ============================================================
+PROCESSAR ARDUINO
+============================================================ */
+
+function processarArduino(linha){
+
+linha =
+linha.trim();
+
+if(!linha) return;
+
+if(!linha.startsWith("TEMP="))
+return;
+
+const valor =
+parseFloat(
+linha.replace("TEMP=","")
+);
+
+if(isNaN(valor)) return;
+
+mostrarTemperatura(valor);
+
+}
+
+/* ============================================================
+LIMPAR HISTÓRICO
+============================================================ */
+
+function limparHistorico(){
+
+if(!confirm("Apagar todo o histórico?"))
+return;
+
+historico=[];
+
+leiturasHora=[];
+
+localStorage.removeItem(
+"forestGuardHistorico"
+);
+
+document.getElementById(
+"tabelaHistorico"
+).innerHTML="";
+
+document.getElementById(
+"tabelaAtual"
+).innerHTML="";
+
+}
+
+/* ============================================================
+FOREST GUARD AI
+============================================================ */
+
+function adicionarMensagem(texto,tipo){
+
+const mensagens =
+document.getElementById("mensagens");
+
+const div =
+document.createElement("div");
+
+div.className =
+"msg " + tipo;
+
+div.textContent = texto;
+
+mensagens.appendChild(div);
+
+mensagens.scrollTop =
+mensagens.scrollHeight;
+
+}
+
+function enviarPergunta(){
+
+const input =
+document.getElementById("pergunta");
+
+const pergunta =
+input.value.trim();
+
+if(!pergunta) return;
+
+adicionarMensagem(
+pergunta,
+"usuario"
+);
+
+input.value="";
+
+setTimeout(
+()=>responderIA(pergunta),
+250
+);
+
+}
+
+function perguntar(texto){
+
+document.getElementById(
+"pergunta"
+).value=texto;
+
+enviarPergunta();
+
+}
+
+/* ============================================================
+CÉREBRO DA IA
+============================================================ */
+
+function responderIA(pergunta){
+
+const p =
+pergunta
+.toLowerCase()
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"");
+
+let resposta="";
+
+if(
+p.includes("como esta") ||
+p.includes("situacao") ||
+p.includes("estacao") ||
+p.includes("agora")
+){
+
+if(temperaturaAtual === null){
+
+resposta =
+"Ainda não recebi uma temperatura do sensor. 🌲 Conecte o Arduino ou use o botão de teste.";
+
+}else{
+
+const r =
+risco(temperaturaAtual);
+
+resposta =
+"Agora a estação está em " +
+temperaturaAtual.toFixed(1) +
+" °C. O nível atual é " +
+r +
+". ";
+
+if(r==="NORMAL")
+resposta +=
+"A temperatura está dentro da faixa normal.";
+
+else if(r==="ATENCAO")
+resposta +=
+"A temperatura está elevada e merece atenção.";
+
+else
+resposta +=
+"A temperatura atingiu a faixa de perigo.";
+
+}
+
+}
+
+else if(
+p.includes("maior") ||
+p.includes("maxima") ||
+p.includes("mais quente")
+){
+
+const valores =
+historico
+.map(x=>x.maximo)
+.concat(
+leiturasHora.map(
+x=>x.temperatura
+)
+);
+
+if(temperaturaAtual !== null)
+valores.push(temperaturaAtual);
+
+if(!valores.length){
+
+resposta =
+"Ainda não tenho histórico suficiente para descobrir a maior temperatura.";
+
+}else{
+
+resposta =
+"A maior temperatura registrada pelo Forest Guard até agora foi " +
+Math.max(...valores).toFixed(1) +
+" °C. 🔥";
+
+}
+
+}
+
+else if(
+p.includes("menor") ||
+p.includes("minima") ||
+p.includes("mais fria")
+){
+
+const valores =
+historico
+.map(x=>x.minimo)
+.concat(
+leiturasHora.map(
+x=>x.temperatura
+)
+);
+
+if(!valores.length){
+
+resposta =
+"Ainda não tenho dados suficientes.";
+
+}else{
+
+resposta =
+"A menor temperatura registrada foi " +
+Math.min(...valores).toFixed(1) +
+" °C. ❄️";
+
+}
+
+}
+
+else if(
+p.includes("subindo") ||
+p.includes("aumentando") ||
+p.includes("aumento")
+){
+
+if(leiturasHora.length < 2){
+
+resposta =
+"Ainda preciso de pelo menos duas leituras para analisar uma tendência.";
+
+}else{
+
+const primeira =
+leiturasHora[0].temperatura;
+
+const ultima =
+leiturasHora[
+leiturasHora.length-1
+].temperatura;
+
+if(ultima > primeira){
+
+resposta =
+"Sim. 📈 A temperatura está subindo. A primeira leitura desta hora foi " +
+primeira.toFixed(1) +
+" °C e a última foi " +
+ultima.toFixed(1) +
+" °C.";
+
+}else if(ultima < primeira){
+
+resposta =
+"Não. 📉 A temperatura está diminuindo. Ela passou de " +
+primeira.toFixed(1) +
+" °C para " +
+ultima.toFixed(1) +
+" °C.";
+
+}else{
+
+resposta =
+"A temperatura está praticamente estável nesta hora.";
+
+}
+
+}
+
+}
+
+else if(
+p.includes("resumo") ||
+p.includes("historico")
+){
+
+if(!historico.length){
+
+resposta =
+"Ainda não existe uma hora fechada no histórico. Continue coletando dados e eu poderei analisar.";
+
+}else{
+
+const ultimo =
+historico[
+historico.length-1
+];
+
+resposta =
+"📊 Resumo da última hora registrada: mínima de " +
+ultimo.minimo.toFixed(1) +
+" °C, máxima de " +
+ultimo.maximo.toFixed(1) +
+" °C e média de " +
+ultimo.media.toFixed(1) +
+" °C. Situação: " +
+ultimo.status +
+".";
+
+}
+
+}
+
+else if(
+p.includes("perigo") ||
+p.includes("risco") ||
+p.includes("seguro")
+){
+
+if(temperaturaAtual === null){
+
+resposta =
+"Ainda não recebi a temperatura atual.";
+
+}else{
+
+const r =
+risco(temperaturaAtual);
+
+resposta =
+"Com " +
+temperaturaAtual.toFixed(1) +
+" °C, a classificação atual é " +
+r +
+".";
+
+}
+
+}
+
+else if(
+p.includes("oi") ||
+p.includes("ola") ||
+p.includes("hello") ||
+p.includes("bom dia") ||
+p.includes("boa tarde") ||
+p.includes("boa noite")
+){
+
+resposta =
+"Olá! 🌲 Estou aqui. Pode conversar comigo sobre o Forest Guard, temperatura, risco, histórico ou funcionamento da estação.";
+
+}
+
+else if(
+p.includes("quem e voce") ||
+p.includes("o que voce e")
+){
+
+resposta =
+"Eu sou a Forest Guard AI, a assistente do seu sistema de monitoramento ambiental. Minha função é interpretar os dados da estação e conversar com você sobre eles. 🌲🤖";
+
+}
+
+else if(
+p.includes("temperatura")
+){
+
+if(temperaturaAtual === null){
+
+resposta =
+"Ainda não recebi nenhuma temperatura.";
+
+}else{
+
+resposta =
+"A temperatura atual registrada é " +
+temperaturaAtual.toFixed(1) +
+" °C.";
+
+}
+
+}
+
+else{
+
+resposta =
+"Entendi o que você disse, mas ainda estou aprendendo essa pergunta. 🌲 Tente perguntar sobre a temperatura, risco, maior temperatura, histórico ou situação da estação.";
+
+}
+
+adicionarMensagem(
+resposta,
+"bot"
+);
+
+}
+
+/* ============================================================
+INICIALIZAÇÃO
+============================================================ */
+
+atualizarHistorico();
+
+</script>
+
+</body>
+</html>
