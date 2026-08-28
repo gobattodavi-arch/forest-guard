@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html lang="pt-BR">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,7 +49,7 @@ padding:25px;
 box-shadow:0 15px 45px rgba(0,0,0,.45);
 }
 
-#login,#cadastro,#verificacao{
+#login{
 max-width:430px;
 margin:10vh auto;
 }
@@ -104,11 +103,6 @@ cursor:pointer;
 filter:brightness(1.2);
 }
 
-.btn:disabled{
-opacity:.6;
-cursor:not-allowed;
-}
-
 .btn-largo{
 width:100%;
 margin-top:15px;
@@ -160,8 +154,10 @@ font-size:11px;
 text-align:center;
 }
 
-#cadastro,#verificacao,#painel{
+#cadastro,#verificacao{
 display:none;
+max-width:430px;
+margin:10vh auto;
 }
 
 .codigo{
@@ -181,6 +177,10 @@ color:var(--cinza);
 
 .suporte a{
 color:var(--verde2);
+}
+
+#painel{
+display:none;
 }
 
 .topo{
@@ -428,7 +428,6 @@ overflow:auto;
 <body>
 
 <div class="tela" id="login">
-
 <div class="card">
 
 <div class="logo">🌲 FOREST GUARD</div>
@@ -437,11 +436,7 @@ overflow:auto;
 Sistema de monitoramento ambiental
 </div>
 
-<label>E-mail</label> <input
-id="email"
-type="email"
-placeholder="seu@email.com"
-autocomplete="email">
+<label>E-mail</label> <input id="email" type="email" placeholder="seu@email.com" autocomplete="email">
 
 <br><br>
 
@@ -452,15 +447,13 @@ placeholder="••••••••"
 autocomplete="current-password"
 onkeydown="if(event.key==='Enter') entrar()">
 
-<button
-class="btn btn-largo"
-onclick="entrar()">
-Entrar no Forest Guard </button>
+<button class="btn btn-largo" onclick="entrar()">
+Entrar no Forest Guard
+</button>
 
-<button
-class="link-btn"
-onclick="mostrarCadastro()">
-📝 Cadastre-se </button>
+<button class="link-btn" onclick="mostrarCadastro()">
+📝 Cadastre-se
+</button>
 
 <div id="mensagemLogin" class="mensagem-login"></div>
 
@@ -472,7 +465,6 @@ onclick="mostrarCadastro()">
 </div>
 
 <div class="tela" id="cadastro">
-
 <div class="card">
 
 <div class="logo">🌲 CRIAR CONTA</div>
@@ -504,16 +496,13 @@ placeholder="Digite a senha novamente"
 autocomplete="new-password"
 onkeydown="if(event.key==='Enter') cadastrar()">
 
-<button
-id="botaoCadastro"
-class="btn btn-largo"
-onclick="cadastrar()">
-Criar conta </button>
+<button class="btn btn-largo" onclick="cadastrar()">
+Criar conta
+</button>
 
-<button
-class="link-btn"
-onclick="mostrarLogin()">
-← Voltar para o login </button>
+<button class="link-btn" onclick="mostrarLogin()">
+← Voltar para o login
+</button>
 
 <div id="mensagemCadastro" class="mensagem-login"></div>
 
@@ -521,7 +510,6 @@ onclick="mostrarLogin()">
 </div>
 
 <div class="tela" id="verificacao">
-
 <div class="card">
 
 <div class="logo">📧 VERIFICAÇÃO</div>
@@ -550,27 +538,24 @@ placeholder="000000"
 style="text-align:center;font-size:22px;letter-spacing:6px;"
 onkeydown="if(event.key==='Enter') verificarCodigo()">
 
-<button
-class="btn btn-largo"
-onclick="verificarCodigo()">
-✅ Verificar e-mail </button>
+<button class="btn btn-largo" onclick="verificarCodigo()">
+✅ Verificar e-mail
+</button>
 
-<button
-class="link-btn"
-onclick="mostrarLogin()">
-← Voltar para o login </button>
+<button class="link-btn" onclick="mostrarLogin()">
+← Voltar para o login
+</button>
 
 <div id="mensagemVerificacao" class="mensagem-login"></div>
 
 <div class="aviso-seguranca">
-📧 O código foi enviado por e-mail através do EmailJS.
+📨 Um código aleatório de 6 dígitos será enviado para o e-mail informado.
 </div>
 
 </div>
 </div>
 
 <div class="tela" id="painel">
-
 <div class="card">
 
 <div class="topo">
@@ -579,15 +564,11 @@ onclick="mostrarLogin()">
 🌲 FOREST GUARD
 </div>
 
-<div
-class="relogio"
-id="relogio">
+<div class="relogio" id="relogio">
 --:--:--
 </div>
 
-<div
-class="status"
-id="status">
+<div class="status" id="status">
 ⚠️ Arduino desconectado
 </div>
 
@@ -610,9 +591,7 @@ Aguardando permissão... </span>
 
 <h3>TEMPERATURA</h3>
 
-<div
-class="temperatura"
-id="temperatura">
+<div class="temperatura" id="temperatura">
 -- °C
 </div>
 
@@ -622,9 +601,7 @@ id="temperatura">
 
 <h3>SITUAÇÃO</h3>
 
-<div
-class="risco normal"
-id="risco">
+<div class="risco normal" id="risco">
 AGUARDANDO
 </div>
 
@@ -644,25 +621,21 @@ Aguardando dados
 
 <div class="acoes">
 
-<button
-class="btn"
-onclick="conectarArduino()">
-🔌 Conectar Arduino </button>
+<button class="btn" onclick="conectarArduino()">
+🔌 Conectar Arduino
+</button>
 
-<button
-class="btn"
-onclick="localizar()">
-📍 Atualizar localização </button>
+<button class="btn" onclick="localizar()">
+📍 Atualizar localização
+</button>
 
-<button
-class="btn"
-onclick="testeTemperatura()">
-🧪 Testar sensor </button>
+<button class="btn" onclick="testeTemperatura()">
+🧪 Testar sensor
+</button>
 
-<button
-class="btn"
-onclick="limparHistorico()">
-🗑️ Limpar histórico </button>
+<button class="btn" onclick="limparHistorico()">
+🗑️ Limpar histórico
+</button>
 
 </div>
 
@@ -675,13 +648,11 @@ onclick="limparHistorico()">
 <table>
 
 <thead>
-
 <tr>
 <th>Horário</th>
 <th>Temperatura</th>
 <th>Situação</th>
 </tr>
-
 </thead>
 
 <tbody id="tabelaAtual"></tbody>
@@ -695,14 +666,11 @@ onclick="limparHistorico()">
 
 <h2>🕐 Histórico por hora</h2>
 
-<div
-class="tabela"
-id="historico">
+<div class="tabela" id="historico">
 
 <table>
 
 <thead>
-
 <tr>
 <th>Data</th>
 <th>Hora</th>
@@ -711,7 +679,6 @@ id="historico">
 <th>Média</th>
 <th>Situação</th>
 </tr>
-
 </thead>
 
 <tbody id="tabelaHistorico"></tbody>
@@ -730,13 +697,11 @@ id="historico">
 <table>
 
 <thead>
-
 <tr>
 <th>Temperatura</th>
 <th>Nível</th>
 <th>Indicação</th>
 </tr>
-
 </thead>
 
 <tbody>
@@ -772,6 +737,7 @@ PERIGO
 </tr>
 
 </tbody>
+
 </table>
 </div>
 </div>
@@ -793,6 +759,7 @@ IA local • focada no monitoramento
 </div>
 
 </div>
+
 </div>
 
 <div id="mensagens">
@@ -812,29 +779,26 @@ Pode perguntar:
 "A temperatura está subindo?"
 
 </div>
+
 </div>
 
 <div class="atalhos">
 
-<button
-class="atalho"
-onclick="perguntar('Como está a estação?')">
-🌡️ Como está? </button>
+<button class="atalho" onclick="perguntar('Como está a estação?')">
+🌡️ Como está?
+</button>
 
-<button
-class="atalho"
-onclick="perguntar('Qual foi a maior temperatura?')">
-🔥 Maior temperatura </button>
+<button class="atalho" onclick="perguntar('Qual foi a maior temperatura?')">
+🔥 Maior temperatura
+</button>
 
-<button
-class="atalho"
-onclick="perguntar('A temperatura está subindo?')">
-📈 Está subindo? </button>
+<button class="atalho" onclick="perguntar('A temperatura está subindo?')">
+📈 Está subindo?
+</button>
 
-<button
-class="atalho"
-onclick="perguntar('Faça um resumo')">
-📊 Resumo </button>
+<button class="atalho" onclick="perguntar('Faça um resumo')">
+📊 Resumo
+</button>
 
 </div>
 
@@ -845,10 +809,9 @@ id="pergunta"
 placeholder="Converse com a Forest Guard AI..."
 onkeydown="if(event.key==='Enter') enviarPergunta()">
 
-<button
-class="btn"
-onclick="enviarPergunta()">
-Enviar </button>
+<button class="btn" onclick="enviarPergunta()">
+Enviar
+</button>
 
 </div>
 
@@ -860,7 +823,7 @@ Enviar </button>
 <script>
 
 /* ============================================================
-   EMAILJS
+CONFIGURAÇÃO EMAILJS
 ============================================================ */
 
 const EMAILJS_PUBLIC_KEY = "3VKE9f-uIWaVsK3gV";
@@ -873,18 +836,17 @@ publicKey: EMAILJS_PUBLIC_KEY
 
 
 /* ============================================================
-   CONFIGURAÇÃO
+CONFIGURAÇÃO
 ============================================================ */
 
 const INTERVALO_LEITURA = 2 * 60 * 1000;
 const EMAIL_SUPORTE = "davisgobatto@gmail.com";
 const LIMITE_TENTATIVAS = 5;
 const TEMPO_BLOQUEIO = 30 * 1000;
-const TEMPO_EXPIRACAO_CODIGO = 10 * 60 * 1000;
 
 
 /* ============================================================
-   VARIÁVEIS
+VARIÁVEIS
 ============================================================ */
 
 let temperaturaAtual = null;
@@ -901,7 +863,7 @@ localStorage.getItem("forestGuardHistorico") || "[]"
 
 
 /* ============================================================
-   SISTEMA DE CONTAS
+SISTEMA DE CONTAS
 ============================================================ */
 
 let contas = JSON.parse(
@@ -922,7 +884,7 @@ localStorage.getItem("forestGuardContaPendente") || "null"
 
 
 /* ============================================================
-   MENSAGENS
+FUNÇÕES DE INTERFACE
 ============================================================ */
 
 function mostrarMensagem(id,texto,tipo){
@@ -936,6 +898,7 @@ elemento.className =
 
 }
 
+
 function limparMensagem(id){
 
 const elemento = document.getElementById(id);
@@ -946,10 +909,6 @@ elemento.className = "mensagem-login";
 
 }
 
-
-/* ============================================================
-   TELAS
-============================================================ */
 
 function mostrarLogin(){
 
@@ -962,6 +921,7 @@ limparMensagem("mensagemLogin");
 
 }
 
+
 function mostrarCadastro(){
 
 document.getElementById("login").style.display="none";
@@ -972,6 +932,7 @@ document.getElementById("painel").style.display="none";
 limparMensagem("mensagemCadastro");
 
 }
+
 
 function mostrarVerificacao(email){
 
@@ -986,33 +947,37 @@ document.getElementById("emailVerificacao").textContent=email;
 
 
 /* ============================================================
-   GERAR CÓDIGO ALEATÓRIO
+GERAR CÓDIGO
 ============================================================ */
 
 function gerarCodigo(){
 
 return String(
-Math.floor(100000 + Math.random() * 900000)
+Math.floor(100000 + Math.random()*900000)
 );
 
 }
 
 
 /* ============================================================
-   ENVIAR CÓDIGO POR EMAILJS
+ENVIAR CÓDIGO PELO EMAILJS
 ============================================================ */
 
 async function enviarCodigoEmail(email,codigo){
 
+try{
+
 const parametros = {
 
+to_email: email,
 email: email,
-
-codigo: codigo
+codigo: codigo,
+verification_code: codigo,
+code: codigo,
+nome: "Forest Guard",
+reply_to: email
 
 };
-
-try{
 
 const resposta = await emailjs.send(
 EMAILJS_SERVICE_ID,
@@ -1021,7 +986,7 @@ parametros
 );
 
 console.log(
-"Email enviado:",
+"EmailJS enviado:",
 resposta.status,
 resposta.text
 );
@@ -1031,7 +996,7 @@ return true;
 }catch(erro){
 
 console.error(
-"Erro ao enviar e-mail:",
+"Erro ao enviar código pelo EmailJS:",
 erro
 );
 
@@ -1043,16 +1008,14 @@ return false;
 
 
 /* ============================================================
-   CADASTRO
+CADASTRO
 ============================================================ */
 
 async function cadastrar(){
 
 const email =
-document
-.getElementById("cadastroEmail")
-.value
-.trim()
+document.getElementById("cadastroEmail")
+.value.trim()
 .toLowerCase();
 
 const senha =
@@ -1062,6 +1025,7 @@ document.getElementById("cadastroSenha")
 const confirmar =
 document.getElementById("cadastroConfirmar")
 .value;
+
 
 if(!email){
 
@@ -1075,10 +1039,8 @@ return;
 
 }
 
-if(
-!email.includes("@") ||
-!email.includes(".")
-){
+
+if(!email.includes("@") || !email.includes(".")){
 
 mostrarMensagem(
 "mensagemCadastro",
@@ -1089,6 +1051,7 @@ mostrarMensagem(
 return;
 
 }
+
 
 if(senha.length < 6){
 
@@ -1102,6 +1065,7 @@ return;
 
 }
 
+
 if(senha !== confirmar){
 
 mostrarMensagem(
@@ -1113,6 +1077,7 @@ mostrarMensagem(
 return;
 
 }
+
 
 if(contas[email]){
 
@@ -1127,28 +1092,15 @@ return;
 }
 
 
-const botao =
-document.getElementById("botaoCadastro");
-
-botao.disabled = true;
-botao.textContent = "📧 Enviando código...";
-
-
 const codigo = gerarCodigo();
 
 
 contaPendente = {
 
-email: email,
-
-senha: senha,
-
-codigo: codigo,
-
-criadaEm: Date.now(),
-
-expiraEm:
-Date.now() + TEMPO_EXPIRACAO_CODIGO
+email:email,
+senha:senha,
+codigo:codigo,
+criadaEm:Date.now()
 
 };
 
@@ -1159,57 +1111,43 @@ JSON.stringify(contaPendente)
 );
 
 
-/*
-   O código é enviado para o endereço digitado.
-*/
-
-const enviado =
-await enviarCodigoEmail(
-email,
-codigo
-);
-
-
-if(!enviado){
-
-localStorage.removeItem(
-"forestGuardContaPendente"
-);
-
-contaPendente = null;
-
-botao.disabled = false;
-botao.textContent = "Criar conta";
-
-mostrarMensagem(
-"mensagemCadastro",
-"❌ Não foi possível enviar o código. Verifique a configuração do EmailJS e tente novamente.",
-"erro"
-);
-
-return;
-
-}
-
-
-botao.disabled = false;
-botao.textContent = "Criar conta";
-
-
 mostrarVerificacao(email);
 
 
 mostrarMensagem(
 "mensagemVerificacao",
-"📧 Código enviado! Verifique sua caixa de entrada e também a pasta de spam.",
+"📨 Enviando código para seu e-mail...",
 "sucesso"
 );
+
+
+const enviado =
+await enviarCodigoEmail(email,codigo);
+
+
+if(enviado){
+
+mostrarMensagem(
+"mensagemVerificacao",
+"📨 Código enviado! Verifique sua caixa de entrada.",
+"sucesso"
+);
+
+}else{
+
+mostrarMensagem(
+"mensagemVerificacao",
+"❌ Não foi possível enviar o código. Verifique a configuração do EmailJS.",
+"erro"
+);
+
+}
 
 }
 
 
 /* ============================================================
-   VERIFICAR CÓDIGO
+VERIFICAR CÓDIGO
 ============================================================ */
 
 function verificarCodigo(){
@@ -1227,54 +1165,12 @@ return;
 }
 
 
-if(
-Date.now() >
-contaPendente.expiraEm
-){
-
-mostrarMensagem(
-"mensagemVerificacao",
-"⏰ Este código expirou. Faça o cadastro novamente.",
-"erro"
-);
-
-localStorage.removeItem(
-"forestGuardContaPendente"
-);
-
-contaPendente=null;
-
-return;
-
-}
-
-
 const codigoDigitado =
-document
-.getElementById("codigoVerificacao")
-.value
-.trim();
+document.getElementById("codigoVerificacao")
+.value.trim();
 
 
-if(
-codigoDigitado.length !== 6 ||
-!/^\d{6}$/.test(codigoDigitado)
-){
-
-mostrarMensagem(
-"mensagemVerificacao",
-"Digite o código de 6 números recebido por e-mail.",
-"erro"
-);
-
-return;
-
-}
-
-
-if(
-codigoDigitado !== contaPendente.codigo
-){
+if(codigoDigitado !== contaPendente.codigo){
 
 mostrarMensagem(
 "mensagemVerificacao",
@@ -1289,10 +1185,8 @@ return;
 
 contas[contaPendente.email] = {
 
-senha: contaPendente.senha,
-
+senha:contaPendente.senha,
 verificado:true,
-
 criadoEm:Date.now()
 
 };
@@ -1307,11 +1201,7 @@ localStorage.removeItem(
 "forestGuardContaPendente"
 );
 
-
-const emailCriado =
-contaPendente.email;
-
-contaPendente=null;
+contaPendente = null;
 
 
 mostrarMensagem(
@@ -1324,7 +1214,10 @@ mostrarMensagem(
 setTimeout(()=>{
 
 document.getElementById("email").value =
-emailCriado;
+document.getElementById("cadastroEmail")
+.value
+.trim()
+.toLowerCase();
 
 document.getElementById("senha").value = "";
 
@@ -1332,7 +1225,7 @@ mostrarLogin();
 
 mostrarMensagem(
 "mensagemLogin",
-"✅ Conta criada com sucesso. Agora faça login.",
+"Conta criada com sucesso. Agora faça login.",
 "sucesso"
 );
 
@@ -1342,7 +1235,7 @@ mostrarMensagem(
 
 
 /* ============================================================
-   BLOQUEIO
+BLOQUEIO
 ============================================================ */
 
 function verificarBloqueio(){
@@ -1368,13 +1261,14 @@ return true;
 
 }
 
+
 if(
 bloqueioAte !== 0 &&
 bloqueioAte <= agora
 ){
 
-bloqueioAte=0;
-tentativasLogin=0;
+bloqueioAte = 0;
+tentativasLogin = 0;
 
 localStorage.setItem(
 "forestGuardBloqueio",
@@ -1394,7 +1288,7 @@ return false;
 
 
 /* ============================================================
-   CONTADOR DE TENTATIVAS
+CONTADOR DE TENTATIVAS
 ============================================================ */
 
 function registrarErroLogin(){
@@ -1406,9 +1300,8 @@ localStorage.setItem(
 String(tentativasLogin)
 );
 
-if(
-tentativasLogin >= LIMITE_TENTATIVAS
-){
+
+if(tentativasLogin >= LIMITE_TENTATIVAS){
 
 bloqueioAte =
 Date.now() + TEMPO_BLOQUEIO;
@@ -1428,9 +1321,10 @@ return;
 
 }
 
+
 const restantes =
-LIMITE_TENTATIVAS -
-tentativasLogin;
+LIMITE_TENTATIVAS - tentativasLogin;
+
 
 mostrarMensagem(
 "mensagemLogin",
@@ -1444,7 +1338,7 @@ restantes +
 
 
 /* ============================================================
-   ENTRAR
+ENTRAR
 ============================================================ */
 
 function entrar(){
@@ -1453,15 +1347,13 @@ if(verificarBloqueio()) return;
 
 
 const email =
-document
-.getElementById("email")
+document.getElementById("email")
 .value
 .trim()
 .toLowerCase();
 
 const senha =
-document
-.getElementById("senha")
+document.getElementById("senha")
 .value;
 
 
@@ -1512,8 +1404,8 @@ return;
 }
 
 
-tentativasLogin=0;
-bloqueioAte=0;
+tentativasLogin = 0;
+bloqueioAte = 0;
 
 localStorage.setItem(
 "forestGuardTentativas",
@@ -1533,14 +1425,13 @@ document.getElementById("painel").style.display="block";
 
 
 localizar();
-
 atualizarHistorico();
 
 }
 
 
 /* ============================================================
-   RELÓGIO
+RELÓGIO
 ============================================================ */
 
 function atualizarRelogio(){
@@ -1553,26 +1444,21 @@ agora.toLocaleTimeString("pt-BR");
 
 document.getElementById("dataHora")
 .textContent =
-agora.toLocaleDateString("pt-BR")
-+
-" "
-+
+agora.toLocaleDateString("pt-BR") +
+" " +
 agora.toLocaleTimeString("pt-BR");
 
 atualizarContador();
 
 }
 
-setInterval(
-atualizarRelogio,
-1000
-);
+setInterval(atualizarRelogio,1000);
 
 atualizarRelogio();
 
 
 /* ============================================================
-   LOCALIZAÇÃO
+LOCALIZAÇÃO
 ============================================================ */
 
 function localizar(){
@@ -1600,10 +1486,8 @@ navigator.geolocation.getCurrentPosition(
 pos=>{
 
 campo.textContent =
-pos.coords.latitude.toFixed(5)
-+
-", "
-+
+pos.coords.latitude.toFixed(5) +
+", " +
 pos.coords.longitude.toFixed(5);
 
 },
@@ -1621,16 +1505,14 @@ campo.textContent =
 
 
 /* ============================================================
-   RISCO
+RISCO
 ============================================================ */
 
 function risco(temp){
 
-if(temp <= 25)
-return "NORMAL";
+if(temp <= 25) return "NORMAL";
 
-if(temp <= 29)
-return "ATENCAO";
+if(temp <= 29) return "ATENCAO";
 
 return "PERIGO";
 
@@ -1639,11 +1521,9 @@ return "PERIGO";
 
 function classe(status){
 
-if(status === "NORMAL")
-return "normal";
+if(status === "NORMAL") return "normal";
 
-if(status === "ATENCAO")
-return "atencao";
+if(status === "ATENCAO") return "atencao";
 
 return "perigo";
 
@@ -1651,35 +1531,28 @@ return "perigo";
 
 
 /* ============================================================
-   MOSTRAR TEMPERATURA
+MOSTRAR TEMPERATURA
 ============================================================ */
 
 function mostrarTemperatura(temp){
 
-temperaturaAtual=temp;
+temperaturaAtual = temp;
 
 document.getElementById("temperatura")
 .textContent =
-temp.toFixed(1)
-+
-" °C";
+temp.toFixed(1) + " °C";
 
 
-const status =
-risco(temp);
-
+const status = risco(temp);
 
 const elemento =
 document.getElementById("risco");
 
 
-elemento.textContent =
-status;
+elemento.textContent = status;
 
 elemento.className =
-"risco "
-+
-classe(status);
+"risco " + classe(status);
 
 
 salvarLeitura(temp);
@@ -1688,18 +1561,17 @@ salvarLeitura(temp);
 
 
 /* ============================================================
-   SALVAR LEITURA
+SALVAR LEITURA
 ============================================================ */
 
 function salvarLeitura(temp){
 
-const agora=Date.now();
+const agora = Date.now();
 
 
 if(
 ultimaLeitura !== 0 &&
-agora - ultimaLeitura <
-INTERVALO_LEITURA
+agora - ultimaLeitura < INTERVALO_LEITURA
 ){
 
 return;
@@ -1707,15 +1579,13 @@ return;
 }
 
 
-ultimaLeitura=agora;
+ultimaLeitura = agora;
 
 
-const data=new Date();
+const data = new Date();
 
 const hora =
-String(data.getHours())
-.padStart(2,"0")
-+
+String(data.getHours()).padStart(2,"0") +
 ":00";
 
 
@@ -1726,7 +1596,7 @@ grupoHora !== hora
 
 fecharHora();
 
-leiturasHora=[];
+leiturasHora = [];
 
 document.getElementById(
 "tabelaAtual"
@@ -1735,16 +1605,14 @@ document.getElementById(
 }
 
 
-grupoHora=hora;
+grupoHora = hora;
 
 
-const leitura={
+const leitura = {
 
-data:
-data.toLocaleDateString("pt-BR"),
+data:data.toLocaleDateString("pt-BR"),
 
-hora:
-data.toLocaleTimeString("pt-BR"),
+hora:data.toLocaleTimeString("pt-BR"),
 
 temperatura:temp,
 
@@ -1760,20 +1628,16 @@ const linha =
 document.createElement("tr");
 
 
-linha.innerHTML=`
+linha.innerHTML = `
 
 <td>${leitura.hora}</td>
 
 <td>${temp.toFixed(1)} °C</td>
 
 <td>
-
 <span class="badge ${classe(leitura.status)}">
-
 ${leitura.status}
-
 </span>
-
 </td>
 
 `;
@@ -1787,13 +1651,12 @@ document
 
 
 /* ============================================================
-   FECHAR HORA
+FECHAR HORA
 ============================================================ */
 
 function fecharHora(){
 
-if(!leiturasHora.length)
-return;
+if(!leiturasHora.length) return;
 
 
 const valores =
@@ -1810,28 +1673,25 @@ Math.max(...valores);
 
 const media =
 valores.reduce(
-(a,b)=>a+b,
-0
+(a,b)=>a+b,0
 ) / valores.length;
 
 
-let status="NORMAL";
+let status = "NORMAL";
 
 
 if(maximo >= 30)
-status="PERIGO";
+status = "PERIGO";
 
 else if(maximo > 25)
-status="ATENCAO";
+status = "ATENCAO";
 
 
-const resumo={
+const resumo = {
 
-data:
-leiturasHora[0].data,
+data:leiturasHora[0].data,
 
-hora:
-grupoHora,
+hora:grupoHora,
 
 minimo:minimo,
 
@@ -1859,7 +1719,7 @@ atualizarHistorico();
 
 
 /* ============================================================
-   HISTÓRICO
+HISTÓRICO
 ============================================================ */
 
 function atualizarHistorico(){
@@ -1881,7 +1741,7 @@ const linha =
 document.createElement("tr");
 
 
-linha.innerHTML=`
+linha.innerHTML = `
 
 <td>${item.data}</td>
 
@@ -1894,13 +1754,9 @@ linha.innerHTML=`
 <td>${item.media.toFixed(1)} °C</td>
 
 <td>
-
 <span class="badge ${classe(item.status)}">
-
 ${item.status}
-
 </span>
-
 </td>
 
 `;
@@ -1914,7 +1770,7 @@ tabela.appendChild(linha);
 
 
 /* ============================================================
-   CONTADOR
+CONTADOR
 ============================================================ */
 
 function atualizarContador(){
@@ -1961,19 +1817,15 @@ document.getElementById(
 "proxima"
 ).textContent =
 
-String(minutos)
-.padStart(2,"0")
-+
-":"
-+
-String(segundos)
-.padStart(2,"0");
+String(minutos).padStart(2,"0") +
+":" +
+String(segundos).padStart(2,"0");
 
 }
 
 
 /* ============================================================
-   TESTE
+TESTE
 ============================================================ */
 
 function testeTemperatura(){
@@ -1981,9 +1833,7 @@ function testeTemperatura(){
 const temp =
 Math.floor(
 Math.random()*16
-)
-+
-20;
+) + 20;
 
 mostrarTemperatura(temp);
 
@@ -1991,7 +1841,7 @@ mostrarTemperatura(temp);
 
 
 /* ============================================================
-   ARDUINO
+ARDUINO
 ============================================================ */
 
 async function conectarArduino(){
@@ -2045,7 +1895,7 @@ alert(
 
 
 /* ============================================================
-   LEITURA SERIAL
+LEITURA SERIAL
 ============================================================ */
 
 async function lerArduino(){
@@ -2065,9 +1915,7 @@ while(true){
 const {value,done} =
 await leitor.read();
 
-
-if(done)
-break;
+if(done) break;
 
 
 if(value){
@@ -2105,16 +1953,15 @@ erro
 
 
 /* ============================================================
-   PROCESSAR ARDUINO
+PROCESSAR ARDUINO
 ============================================================ */
 
 function processarArduino(linha){
 
-linha=linha.trim();
+linha = linha.trim();
 
 
-if(!linha)
-return;
+if(!linha) return;
 
 
 if(!linha.startsWith("TEMP="))
@@ -2123,15 +1970,11 @@ return;
 
 const valor =
 parseFloat(
-linha.replace(
-"TEMP=",
-""
-)
+linha.replace("TEMP=","")
 );
 
 
-if(isNaN(valor))
-return;
+if(isNaN(valor)) return;
 
 
 mostrarTemperatura(valor);
@@ -2140,21 +1983,17 @@ mostrarTemperatura(valor);
 
 
 /* ============================================================
-   LIMPAR HISTÓRICO
+LIMPAR HISTÓRICO
 ============================================================ */
 
 function limparHistorico(){
 
-if(
-!confirm(
+if(!confirm(
 "Apagar todo o histórico?"
-)
-)
-return;
+)) return;
 
 
 historico=[];
-
 leiturasHora=[];
 
 
@@ -2176,10 +2015,13 @@ document.getElementById(
 
 
 /* ============================================================
-   FOREST GUARD AI
+FOREST GUARD AI
 ============================================================ */
 
-function adicionarMensagem(texto,tipo){
+function adicionarMensagem(
+texto,
+tipo
+){
 
 const mensagens =
 document.getElementById(
@@ -2192,12 +2034,10 @@ document.createElement("div");
 
 
 div.className =
-"msg "
-+
-tipo;
+"msg " + tipo;
 
 
-div.textContent=texto;
+div.textContent = texto;
 
 
 mensagens.appendChild(div);
@@ -2221,8 +2061,7 @@ const pergunta =
 input.value.trim();
 
 
-if(!pergunta)
-return;
+if(!pergunta) return;
 
 
 adicionarMensagem(
@@ -2255,7 +2094,7 @@ enviarPergunta();
 
 
 /* ============================================================
-   CÉREBRO DA IA
+CÉREBRO DA IA
 ============================================================ */
 
 function responderIA(pergunta){
@@ -2280,9 +2119,7 @@ p.includes("estacao") ||
 p.includes("agora")
 ){
 
-if(
-temperaturaAtual === null
-){
+if(temperaturaAtual === null){
 
 resposta =
 "Ainda não recebi uma temperatura do sensor. 🌲 Conecte o Arduino ou use o botão de teste.";
@@ -2294,14 +2131,10 @@ risco(temperaturaAtual);
 
 
 resposta =
-"Agora a estação está em "
-+
-temperaturaAtual.toFixed(1)
-+
-" °C. O nível atual é "
-+
-r
-+
+"Agora a estação está em " +
+temperaturaAtual.toFixed(1) +
+" °C. O nível atual é " +
+r +
 ". ";
 
 
@@ -2338,9 +2171,7 @@ x=>x.temperatura
 );
 
 
-if(
-temperaturaAtual !== null
-)
+if(temperaturaAtual !== null)
 valores.push(
 temperaturaAtual
 );
@@ -2354,10 +2185,8 @@ resposta =
 }else{
 
 resposta =
-"A maior temperatura registrada pelo Forest Guard até agora foi "
-+
-Math.max(...valores).toFixed(1)
-+
+"A maior temperatura registrada pelo Forest Guard até agora foi " +
+Math.max(...valores).toFixed(1) +
 " °C. 🔥";
 
 }
@@ -2389,10 +2218,8 @@ resposta =
 }else{
 
 resposta =
-"A menor temperatura registrada foi "
-+
-Math.min(...valores).toFixed(1)
-+
+"A menor temperatura registrada foi " +
+Math.min(...valores).toFixed(1) +
 " °C. ❄️";
 
 }
@@ -2406,9 +2233,7 @@ p.includes("aumentando") ||
 p.includes("aumento")
 ){
 
-if(
-leiturasHora.length < 2
-){
+if(leiturasHora.length < 2){
 
 resposta =
 "Ainda preciso de pelo menos duas leituras para analisar uma tendência.";
@@ -2427,34 +2252,22 @@ leiturasHora.length-1
 if(ultima > primeira){
 
 resposta =
-"Sim. 📈 A temperatura está subindo. A primeira leitura desta hora foi "
-+
-primeira.toFixed(1)
-+
-" °C e a última foi "
-+
-ultima.toFixed(1)
-+
+"Sim. 📈 A temperatura está subindo. A primeira leitura desta hora foi " +
+primeira.toFixed(1) +
+" °C e a última foi " +
+ultima.toFixed(1) +
 " °C.";
 
-}
-
-else if(ultima < primeira){
+}else if(ultima < primeira){
 
 resposta =
-"Não. 📉 A temperatura está diminuindo. Ela passou de "
-+
-primeira.toFixed(1)
-+
-" °C para "
-+
-ultima.toFixed(1)
-+
+"Não. 📉 A temperatura está diminuindo. Ela passou de " +
+primeira.toFixed(1) +
+" °C para " +
+ultima.toFixed(1) +
 " °C.";
 
-}
-
-else{
+}else{
 
 resposta =
 "A temperatura está praticamente estável nesta hora.";
@@ -2485,22 +2298,14 @@ historico.length-1
 
 
 resposta =
-"📊 Resumo da última hora registrada: mínima de "
-+
-ultimo.minimo.toFixed(1)
-+
-" °C, máxima de "
-+
-ultimo.maximo.toFixed(1)
-+
-" °C e média de "
-+
-ultimo.media.toFixed(1)
-+
-" °C. Situação: "
-+
-ultimo.status
-+
+"📊 Resumo da última hora registrada: mínima de " +
+ultimo.minimo.toFixed(1) +
+" °C, máxima de " +
+ultimo.maximo.toFixed(1) +
+" °C e média de " +
+ultimo.media.toFixed(1) +
+" °C. Situação: " +
+ultimo.status +
 ".";
 
 }
@@ -2514,9 +2319,7 @@ p.includes("risco") ||
 p.includes("seguro")
 ){
 
-if(
-temperaturaAtual === null
-){
+if(temperaturaAtual === null){
 
 resposta =
 "Ainda não recebi a temperatura atual.";
@@ -2526,15 +2329,12 @@ resposta =
 const r =
 risco(temperaturaAtual);
 
+
 resposta =
-"Com "
-+
-temperaturaAtual.toFixed(1)
-+
-" °C, a classificação atual é "
-+
-r
-+
+"Com " +
+temperaturaAtual.toFixed(1) +
+" °C, a classificação atual é " +
+r +
 ".";
 
 }
@@ -2572,9 +2372,7 @@ else if(
 p.includes("temperatura")
 ){
 
-if(
-temperaturaAtual === null
-){
+if(temperaturaAtual === null){
 
 resposta =
 "Ainda não recebi nenhuma temperatura.";
@@ -2582,10 +2380,8 @@ resposta =
 }else{
 
 resposta =
-"A temperatura atual registrada é "
-+
-temperaturaAtual.toFixed(1)
-+
+"A temperatura atual registrada é " +
+temperaturaAtual.toFixed(1) +
 " °C.";
 
 }
@@ -2610,7 +2406,7 @@ resposta,
 
 
 /* ============================================================
-   INICIALIZAÇÃO
+INICIALIZAÇÃO
 ============================================================ */
 
 atualizarHistorico();
