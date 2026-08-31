@@ -3,7 +3,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Forest Guard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -20,7 +20,7 @@
 --cinza:#8da598;
 --vermelho:#ff5050;
 --azul:#55aaff;
---laranja:#ffb52e;
+--laranja:#ff9f43;
 }
 
 *{box-sizing:border-box}
@@ -50,7 +50,7 @@ padding:25px;
 box-shadow:0 15px 45px rgba(0,0,0,.45);
 }
 
-#login{
+#login,#cadastro,#verificacao{
 max-width:430px;
 margin:10vh auto;
 }
@@ -86,9 +86,7 @@ color:white;
 outline:none;
 }
 
-input:focus{
-border-color:var(--claro);
-}
+input:focus{border-color:var(--claro)}
 
 .btn{
 border:0;
@@ -100,9 +98,7 @@ font-weight:bold;
 cursor:pointer;
 }
 
-.btn:hover{
-filter:brightness(1.2);
-}
+.btn:hover{filter:brightness(1.2)}
 
 .btn-largo{
 width:100%;
@@ -119,10 +115,6 @@ color:var(--verde2);
 cursor:pointer;
 padding:8px;
 font-weight:bold;
-}
-
-.link-btn:hover{
-color:var(--claro);
 }
 
 .mensagem-login{
@@ -155,10 +147,8 @@ font-size:11px;
 text-align:center;
 }
 
-#cadastro,#verificacao{
+#cadastro,#verificacao,#painel{
 display:none;
-max-width:430px;
-margin:10vh auto;
 }
 
 .codigo{
@@ -167,21 +157,6 @@ font-size:28px;
 letter-spacing:8px;
 font-weight:bold;
 color:var(--claro);
-}
-
-.suporte{
-margin-top:14px;
-text-align:center;
-font-size:12px;
-color:var(--cinza);
-}
-
-.suporte a{
-color:var(--verde2);
-}
-
-#painel{
-display:none;
 }
 
 .topo{
@@ -229,9 +204,7 @@ margin-bottom:18px;
 color:#d9e9df;
 }
 
-.local strong{
-color:var(--verde2);
-}
+.local strong{color:var(--verde2)}
 
 .grid{
 display:grid;
@@ -255,6 +228,27 @@ margin-top:0;
 font-size:43px;
 font-weight:bold;
 color:var(--limao);
+}
+
+.vibracao{
+font-size:27px;
+font-weight:bold;
+margin-top:12px;
+color:var(--cinza);
+}
+
+.vibracao.detectada{
+color:#ff7070;
+animation:pulsar .8s infinite alternate;
+}
+
+.vibracao.normal{
+color:var(--verde2);
+}
+
+@keyframes pulsar{
+from{transform:scale(1)}
+to{transform:scale(1.05)}
 }
 
 .risco{
@@ -282,33 +276,8 @@ border:1px solid var(--vermelho);
 color:#ff7070;
 }
 
-.vibracao-normal{
-background:rgba(16,172,132,.15);
-border:1px solid var(--verde);
-color:var(--verde2);
-}
-
-.vibracao-alerta{
-background:rgba(255,80,80,.15);
-border:1px solid var(--vermelho);
-color:#ff7070;
-animation:pulsar 1s infinite;
-}
-
-@keyframes pulsar{
-0%,100%{opacity:1}
-50%{opacity:.55}
-}
-
-.vibracao{
-font-size:25px;
-font-weight:bold;
-margin-bottom:8px;
-}
-
-.vibracao-hora{
-font-size:12px;
-color:var(--cinza);
+.vibracao-card{
+border:1px solid rgba(255,159,67,.2);
 }
 
 .acoes{
@@ -343,9 +312,7 @@ border-bottom:1px solid rgba(255,255,255,.06);
 text-align:center;
 }
 
-th{
-color:var(--verde2);
-}
+th{color:var(--verde2)}
 
 .badge{
 padding:5px 9px;
@@ -354,9 +321,13 @@ font-size:11px;
 font-weight:bold;
 }
 
-#ia{
-margin-top:25px;
+.badge-vibracao{
+background:rgba(255,159,67,.15);
+border:1px solid var(--laranja);
+color:#ffb76b;
 }
+
+#ia{margin-top:25px}
 
 .ia-topo{
 display:flex;
@@ -387,7 +358,7 @@ color:var(--cinza);
 }
 
 #mensagens{
-height:280px;
+height:300px;
 overflow-y:auto;
 padding:12px;
 background:#09140e;
@@ -436,9 +407,7 @@ display:flex;
 gap:8px;
 }
 
-.entrada-ia input{
-flex:1;
-}
+.entrada-ia input{flex:1}
 
 #historico{
 max-height:400px;
@@ -470,10 +439,7 @@ Sistema de monitoramento ambiental
 
 <br><br>
 
-<label>Senha</label> <input
-id="senha"
-type="password"
-placeholder="••••••••"
+<label>Senha</label> <input id="senha" type="password" placeholder="••••••••"
 autocomplete="current-password"
 onkeydown="if(event.key==='Enter') entrar()">
 
@@ -503,27 +469,18 @@ Entrar no Forest Guard
 Crie sua conta no Forest Guard
 </div>
 
-<label>E-mail</label> <input
-id="cadastroEmail"
-type="email"
-placeholder="seu@email.com"
-autocomplete="email">
+<label>E-mail</label> <input id="cadastroEmail" type="email"
+placeholder="seu@email.com">
 
 <br><br>
 
-<label>Senha</label> <input
-id="cadastroSenha"
-type="password"
-placeholder="Mínimo de 6 caracteres"
-autocomplete="new-password">
+<label>Senha</label> <input id="cadastroSenha" type="password"
+placeholder="Mínimo de 6 caracteres">
 
 <br><br>
 
-<label>Confirmar senha</label> <input
-id="cadastroConfirmar"
-type="password"
+<label>Confirmar senha</label> <input id="cadastroConfirmar" type="password"
 placeholder="Digite a senha novamente"
-autocomplete="new-password"
 onkeydown="if(event.key==='Enter') cadastrar()">
 
 <button class="btn btn-largo" onclick="cadastrar()">
@@ -552,15 +509,13 @@ Confirme seu e-mail para continuar
 Digite o código de 6 números enviado para:
 </p>
 
-<p
-id="emailVerificacao"
+<p id="emailVerificacao"
 style="text-align:center;color:var(--verde2);font-weight:bold;">
 </p>
 
 <label>Código de verificação</label>
 
-<input
-id="codigoVerificacao"
+<input id="codigoVerificacao"
 type="text"
 inputmode="numeric"
 maxlength="6"
@@ -638,28 +593,25 @@ AGUARDANDO
 
 <div class="info">
 
-<h3>VIBRAÇÃO / DESMATAMENTO</h3>
-
-<div
-class="vibracao vibracao-normal"
-id="vibracaoStatus">
-🟢 SEM VIBRAÇÃO
-</div>
-
-<div
-class="vibracao-hora"
-id="ultimaVibracao">
-Nenhuma detecção registrada
-</div>
-
-</div>
-
-<div class="info">
-
 <h3>PRÓXIMA LEITURA</h3>
 
 <div id="proxima">
 Aguardando dados
+</div>
+
+</div>
+
+<div class="info vibracao-card">
+
+<h3>📳 SENSOR DE VIBRAÇÃO</h3>
+
+<div class="vibracao normal" id="vibracao">
+SEM VIBRAÇÃO
+</div>
+
+<div style="margin-top:10px;font-size:12px;color:var(--cinza)">
+Eventos detectados:
+<strong id="contadorVibracao">0</strong>
 </div>
 
 </div>
@@ -677,10 +629,10 @@ Aguardando dados
 </button>
 
 <button class="btn" onclick="testeTemperatura()">
-🧪 Testar sensor
+🌡️ Testar sensor
 </button>
 
-<button class="btn" onclick="testarVibracao()">
+<button class="btn" onclick="testeVibracao()">
 📳 Testar vibração
 </button>
 
@@ -715,6 +667,29 @@ Aguardando dados
 
 <div class="secao">
 
+<h2>📳 Eventos de vibração</h2>
+
+<div class="tabela">
+
+<table>
+
+<thead>
+<tr>
+<th>Data</th>
+<th>Hora</th>
+<th>Evento</th>
+</tr>
+</thead>
+
+<tbody id="tabelaVibracao"></tbody>
+
+</table>
+
+</div>
+</div>
+
+<div class="secao">
+
 <h2>🕐 Histórico por hora</h2>
 
 <div class="tabela" id="historico">
@@ -741,29 +716,6 @@ Aguardando dados
 
 <div class="secao">
 
-<h2>📳 Histórico de vibrações</h2>
-
-<div class="tabela">
-
-<table>
-
-<thead>
-<tr>
-<th>Data</th>
-<th>Hora</th>
-<th>Evento</th>
-</tr>
-</thead>
-
-<tbody id="tabelaVibracao"></tbody>
-
-</table>
-
-</div>
-</div>
-
-<div class="secao">
-
 <h2>🚨 Tabela de perigo</h2>
 
 <div class="tabela">
@@ -782,42 +734,20 @@ Aguardando dados
 
 <tr>
 <td>≤ 25 °C</td>
-<td>
-<span class="badge normal">
-NORMAL
-</span>
-</td>
+<td><span class="badge normal">NORMAL</span></td>
 <td>🟢 Condição normal</td>
 </tr>
 
 <tr>
 <td>26–29 °C</td>
-<td>
-<span class="badge atencao">
-ATENÇÃO
-</span>
-</td>
+<td><span class="badge atencao">ATENÇÃO</span></td>
 <td>🔵 Temperatura elevada</td>
 </tr>
 
 <tr>
 <td>≥ 30 °C</td>
-<td>
-<span class="badge perigo">
-PERIGO
-</span>
-</td>
+<td><span class="badge perigo">PERIGO</span></td>
 <td>🔴 Possível risco</td>
-</tr>
-
-<tr>
-<td>Vibração</td>
-<td>
-<span class="badge perigo">
-ALERTA
-</span>
-</td>
-<td>📳 Possível atividade no ambiente</td>
 </tr>
 
 </tbody>
@@ -839,7 +769,7 @@ Forest Guard AI
 </div>
 
 <div class="ia-status">
-IA local • focada no monitoramento ambiental
+IA local • temperatura • vibração • monitoramento ambiental
 </div>
 
 </div>
@@ -852,19 +782,23 @@ IA local • focada no monitoramento ambiental
 
 Olá! 🌲 Eu sou a Forest Guard AI.
 
-Posso conversar com você sobre
-a estação, temperatura, risco,
-vibração, possíveis atividades no
-ambiente e histórico.
+Agora também consigo analisar o sensor de vibração.
 
-Pode perguntar:
+Posso responder sobre:
+🌡️ temperatura
+📳 vibração
+🔥 risco
+📊 histórico
+📈 tendência
+
+Você pode perguntar:
 
 "Como está a estação?"
+"Tem vibração?"
+"Foi detectado desmatamento?"
 "Qual foi a maior temperatura?"
-"Está perigoso?"
-"Teve vibração?"
-"O sensor detectou desmatamento?"
-"Quando foi a última vibração?"
+"A temperatura está subindo?"
+"Faça um resumo"
 
 </div>
 
@@ -872,36 +806,35 @@ Pode perguntar:
 
 <div class="atalhos">
 
-<button class="atalho" onclick="perguntar('Como está a estação?')">
-🌡️ Como está?
-</button>
+<button class="atalho"
+onclick="perguntar('Como está a estação?')">
+🌡️ Como está? </button>
 
-<button class="atalho" onclick="perguntar('Qual foi a maior temperatura?')">
-🔥 Maior temperatura
-</button>
+<button class="atalho"
+onclick="perguntar('Tem vibração?')">
+📳 Vibração </button>
 
-<button class="atalho" onclick="perguntar('A temperatura está subindo?')">
-📈 Está subindo?
-</button>
+<button class="atalho"
+onclick="perguntar('Foi detectado desmatamento?')">
+🌳 Desmatamento </button>
 
-<button class="atalho" onclick="perguntar('Teve vibração?')">
-📳 Teve vibração?
-</button>
+<button class="atalho"
+onclick="perguntar('Qual foi a maior temperatura?')">
+🔥 Maior temperatura </button>
 
-<button class="atalho" onclick="perguntar('Houve possível desmatamento?')">
-🌳 Desmatamento
-</button>
+<button class="atalho"
+onclick="perguntar('A temperatura está subindo?')">
+📈 Está subindo? </button>
 
-<button class="atalho" onclick="perguntar('Faça um resumo')">
-📊 Resumo
-</button>
+<button class="atalho"
+onclick="perguntar('Faça um resumo')">
+📊 Resumo </button>
 
 </div>
 
 <div class="entrada-ia">
 
-<input
-id="pergunta"
+<input id="pergunta"
 placeholder="Converse com a Forest Guard AI..."
 onkeydown="if(event.key==='Enter') enviarPergunta()">
 
@@ -919,15 +852,15 @@ Enviar
 <script>
 
 /* ============================================================
-CONFIGURAÇÃO EMAILJS
+EMAILJS
 ============================================================ */
 
-const EMAILJS_PUBLIC_KEY = "3VKE9f-uIWaVsK3gV";
-const EMAILJS_SERVICE_ID = "service_jn1xv5g";
-const EMAILJS_TEMPLATE_ID = "template_ynkxnpa";
+const EMAILJS_PUBLIC_KEY="3VKE9f-uIWaVsK3gV";
+const EMAILJS_SERVICE_ID="service_jn1xv5g";
+const EMAILJS_TEMPLATE_ID="template_ynkxnpa";
 
 emailjs.init({
-publicKey: EMAILJS_PUBLIC_KEY
+publicKey:EMAILJS_PUBLIC_KEY
 });
 
 
@@ -935,83 +868,72 @@ publicKey: EMAILJS_PUBLIC_KEY
 CONFIGURAÇÃO
 ============================================================ */
 
-const INTERVALO_LEITURA = 2 * 60 * 1000;
-const EMAIL_SUPORTE = "davisgobatto@gmail.com";
-const LIMITE_TENTATIVAS = 5;
-const TEMPO_BLOQUEIO = 30 * 1000;
+const INTERVALO_LEITURA=2*60*1000;
+const LIMITE_TENTATIVAS=5;
+const TEMPO_BLOQUEIO=30*1000;
 
 
 /* ============================================================
 VARIÁVEIS
 ============================================================ */
 
-let temperaturaAtual = null;
-let ultimaLeitura = 0;
-let leiturasHora = [];
-let grupoHora = "";
-let porta = null;
-let leitor = null;
-let buffer = "";
+let temperaturaAtual=null;
+let ultimaLeitura=0;
+let leiturasHora=[];
+let grupoHora="";
+let porta=null;
+let leitor=null;
+let buffer="";
 
-let vibracaoDetectada = false;
-let ultimaVibracao = 0;
+let vibracaoDetectada=false;
+let totalVibracoes=0;
 
-let historico = JSON.parse(
-localStorage.getItem("forestGuardHistorico") || "[]"
+let eventosVibracao=JSON.parse(
+localStorage.getItem("forestGuardVibracoes")||"[]"
 );
 
-let historicoVibracao = JSON.parse(
-localStorage.getItem("forestGuardVibracao") || "[]"
+let historico=JSON.parse(
+localStorage.getItem("forestGuardHistorico")||"[]"
 );
 
-
-/* ============================================================
-SISTEMA DE CONTAS
-============================================================ */
-
-let contas = JSON.parse(
-localStorage.getItem("forestGuardContas") || "{}"
+let contas=JSON.parse(
+localStorage.getItem("forestGuardContas")||"{}"
 );
 
-let tentativasLogin = parseInt(
-localStorage.getItem("forestGuardTentativas") || "0"
+let tentativasLogin=parseInt(
+localStorage.getItem("forestGuardTentativas")||"0"
 );
 
-let bloqueioAte = parseInt(
-localStorage.getItem("forestGuardBloqueio") || "0"
+let bloqueioAte=parseInt(
+localStorage.getItem("forestGuardBloqueio")||"0"
 );
 
-let contaPendente = JSON.parse(
-localStorage.getItem("forestGuardContaPendente") || "null"
+let contaPendente=JSON.parse(
+localStorage.getItem("forestGuardContaPendente")||"null"
 );
 
 
 /* ============================================================
-FUNÇÕES DE INTERFACE
+INTERFACE
 ============================================================ */
 
 function mostrarMensagem(id,texto,tipo){
 
-const elemento = document.getElementById(id);
+const elemento=document.getElementById(id);
 
-elemento.textContent = texto;
-
-elemento.className =
-"mensagem-login " + tipo;
+elemento.textContent=texto;
+elemento.className="mensagem-login "+tipo;
 
 }
-
 
 function limparMensagem(id){
 
-const elemento = document.getElementById(id);
+const elemento=document.getElementById(id);
 
-elemento.textContent = "";
-
-elemento.className = "mensagem-login";
+elemento.textContent="";
+elemento.className="mensagem-login";
 
 }
-
 
 function mostrarLogin(){
 
@@ -1024,7 +946,6 @@ limparMensagem("mensagemLogin");
 
 }
 
-
 function mostrarCadastro(){
 
 document.getElementById("login").style.display="none";
@@ -1035,7 +956,6 @@ document.getElementById("painel").style.display="none";
 limparMensagem("mensagemCadastro");
 
 }
-
 
 function mostrarVerificacao(email){
 
@@ -1050,46 +970,41 @@ document.getElementById("emailVerificacao").textContent=email;
 
 
 /* ============================================================
-GERAR CÓDIGO
+CÓDIGO EMAIL
 ============================================================ */
 
 function gerarCodigo(){
 
 return String(
-Math.floor(100000 + Math.random()*900000)
+Math.floor(100000+Math.random()*900000)
 );
 
 }
-
-
-/* ============================================================
-ENVIAR CÓDIGO PELO EMAILJS
-============================================================ */
 
 async function enviarCodigoEmail(email,codigo){
 
 try{
 
-const parametros = {
+const parametros={
 
-to_email: email,
-email: email,
-codigo: codigo,
-verification_code: codigo,
-code: codigo,
-nome: "Forest Guard",
-reply_to: email
+to_email:email,
+email:email,
+codigo:codigo,
+verification_code:codigo,
+code:codigo,
+nome:"Forest Guard",
+reply_to:email
 
 };
 
-const resposta = await emailjs.send(
+const resposta=await emailjs.send(
 EMAILJS_SERVICE_ID,
 EMAILJS_TEMPLATE_ID,
 parametros
 );
 
 console.log(
-"EmailJS enviado:",
+"EmailJS:",
 resposta.status,
 resposta.text
 );
@@ -1098,14 +1013,9 @@ return true;
 
 }catch(erro){
 
-console.error(
-"Erro ao enviar código pelo EmailJS:",
-erro
-);
+console.error("Erro EmailJS:",erro);
 
 return false;
-
-}
 
 }
 
@@ -1116,106 +1026,72 @@ CADASTRO
 
 async function cadastrar(){
 
-const email =
-document.getElementById("cadastroEmail")
-.value.trim()
-.toLowerCase();
+const email=document.getElementById("cadastroEmail")
+.value.trim().toLowerCase();
 
-const senha =
-document.getElementById("cadastroSenha")
-.value;
-
-const confirmar =
-document.getElementById("cadastroConfirmar")
-.value;
-
+const senha=document.getElementById("cadastroSenha").value;
+const confirmar=document.getElementById("cadastroConfirmar").value;
 
 if(!email){
 
-mostrarMensagem(
-"mensagemCadastro",
-"Digite seu e-mail.",
-"erro"
-);
+mostrarMensagem("mensagemCadastro",
+"Digite seu e-mail.","erro");
 
 return;
 
 }
 
+if(!email.includes("@")||!email.includes(".")){
 
-if(!email.includes("@") || !email.includes(".")){
-
-mostrarMensagem(
-"mensagemCadastro",
-"Digite um e-mail válido.",
-"erro"
-);
+mostrarMensagem("mensagemCadastro",
+"Digite um e-mail válido.","erro");
 
 return;
 
 }
 
+if(senha.length<6){
 
-if(senha.length < 6){
-
-mostrarMensagem(
-"mensagemCadastro",
-"A senha precisa ter pelo menos 6 caracteres.",
-"erro"
-);
+mostrarMensagem("mensagemCadastro",
+"A senha precisa ter pelo menos 6 caracteres.","erro");
 
 return;
 
 }
 
+if(senha!==confirmar){
 
-if(senha !== confirmar){
-
-mostrarMensagem(
-"mensagemCadastro",
-"As senhas não são iguais.",
-"erro"
-);
+mostrarMensagem("mensagemCadastro",
+"As senhas não são iguais.","erro");
 
 return;
 
 }
-
 
 if(contas[email]){
 
-mostrarMensagem(
-"mensagemCadastro",
-"Este e-mail já possui uma conta.",
-"erro"
-);
+mostrarMensagem("mensagemCadastro",
+"Este e-mail já possui uma conta.","erro");
 
 return;
 
 }
 
+const codigo=gerarCodigo();
 
-const codigo = gerarCodigo();
-
-
-contaPendente = {
-
+contaPendente={
 email:email,
 senha:senha,
 codigo:codigo,
 criadaEm:Date.now()
-
 };
-
 
 localStorage.setItem(
 "forestGuardContaPendente",
 JSON.stringify(contaPendente)
 );
 
-
 mostrarVerificacao(email);
-
 
 mostrarMensagem(
 "mensagemVerificacao",
@@ -1223,10 +1099,10 @@ mostrarMensagem(
 "sucesso"
 );
 
-
-const enviado =
-await enviarCodigoEmail(email,codigo);
-
+const enviado=await enviarCodigoEmail(
+email,
+codigo
+);
 
 if(enviado){
 
@@ -1240,7 +1116,7 @@ mostrarMensagem(
 
 mostrarMensagem(
 "mensagemVerificacao",
-"❌ Não foi possível enviar o código. Verifique a configuração do EmailJS.",
+"❌ Não foi possível enviar o código. Verifique o EmailJS.",
 "erro"
 );
 
@@ -1267,13 +1143,11 @@ return;
 
 }
 
-
-const codigoDigitado =
+const codigoDigitado=
 document.getElementById("codigoVerificacao")
 .value.trim();
 
-
-if(codigoDigitado !== contaPendente.codigo){
+if(codigoDigitado!==contaPendente.codigo){
 
 mostrarMensagem(
 "mensagemVerificacao",
@@ -1285,15 +1159,13 @@ return;
 
 }
 
-
-contas[contaPendente.email] = {
+contas[contaPendente.email]={
 
 senha:contaPendente.senha,
 verificado:true,
 criadoEm:Date.now()
 
 };
-
 
 localStorage.setItem(
 "forestGuardContas",
@@ -1304,25 +1176,20 @@ localStorage.removeItem(
 "forestGuardContaPendente"
 );
 
-contaPendente = null;
+const emailConfirmado=contaPendente.email;
 
+contaPendente=null;
 
 mostrarMensagem(
 "mensagemVerificacao",
-"✅ E-mail verificado! Sua conta foi criada.",
+"✅ E-mail verificado! Conta criada.",
 "sucesso"
 );
 
-
 setTimeout(()=>{
 
-document.getElementById("email").value =
-document.getElementById("cadastroEmail")
-.value
-.trim()
-.toLowerCase();
-
-document.getElementById("senha").value = "";
+document.getElementById("email").value=emailConfirmado;
+document.getElementById("senha").value="";
 
 mostrarLogin();
 
@@ -1338,25 +1205,23 @@ mostrarMensagem(
 
 
 /* ============================================================
-BLOQUEIO
+LOGIN
 ============================================================ */
 
 function verificarBloqueio(){
 
-const agora = Date.now();
+const agora=Date.now();
 
-if(bloqueioAte > agora){
+if(bloqueioAte>agora){
 
-const restante =
-Math.ceil(
+const restante=Math.ceil(
 (bloqueioAte-agora)/1000
 );
 
 mostrarMensagem(
 "mensagemLogin",
-"🔒 Muitas tentativas. Aguarde " +
-restante +
-" segundos.",
+"🔒 Muitas tentativas. Aguarde "+
+restante+" segundos.",
 "erro"
 );
 
@@ -1364,23 +1229,17 @@ return true;
 
 }
 
+if(bloqueioAte!==0&&bloqueioAte<=agora){
 
-if(
-bloqueioAte !== 0 &&
-bloqueioAte <= agora
-){
-
-bloqueioAte = 0;
-tentativasLogin = 0;
+bloqueioAte=0;
+tentativasLogin=0;
 
 localStorage.setItem(
-"forestGuardBloqueio",
-"0"
+"forestGuardBloqueio","0"
 );
 
 localStorage.setItem(
-"forestGuardTentativas",
-"0"
+"forestGuardTentativas","0"
 );
 
 }
@@ -1388,11 +1247,6 @@ localStorage.setItem(
 return false;
 
 }
-
-
-/* ============================================================
-CONTADOR DE TENTATIVAS
-============================================================ */
 
 function registrarErroLogin(){
 
@@ -1403,11 +1257,9 @@ localStorage.setItem(
 String(tentativasLogin)
 );
 
+if(tentativasLogin>=LIMITE_TENTATIVAS){
 
-if(tentativasLogin >= LIMITE_TENTATIVAS){
-
-bloqueioAte =
-Date.now() + TEMPO_BLOQUEIO;
+bloqueioAte=Date.now()+TEMPO_BLOQUEIO;
 
 localStorage.setItem(
 "forestGuardBloqueio",
@@ -1424,43 +1276,27 @@ return;
 
 }
 
-
-const restantes =
-LIMITE_TENTATIVAS - tentativasLogin;
-
+const restantes=LIMITE_TENTATIVAS-tentativasLogin;
 
 mostrarMensagem(
 "mensagemLogin",
-"❌ E-mail ou senha incorretos. Restam " +
-restantes +
-" tentativa(s).",
+"❌ E-mail ou senha incorretos. Restam "+
+restantes+" tentativa(s).",
 "erro"
 );
 
 }
 
-
-/* ============================================================
-ENTRAR
-============================================================ */
-
 function entrar(){
 
-if(verificarBloqueio()) return;
+if(verificarBloqueio())return;
 
+const email=document.getElementById("email")
+.value.trim().toLowerCase();
 
-const email =
-document.getElementById("email")
-.value
-.trim()
-.toLowerCase();
+const senha=document.getElementById("senha").value;
 
-const senha =
-document.getElementById("senha")
-.value;
-
-
-if(!email || !senha){
+if(!email||!senha){
 
 mostrarMensagem(
 "mensagemLogin",
@@ -1472,18 +1308,14 @@ return;
 
 }
 
-
-const conta = contas[email];
-
+const conta=contas[email];
 
 if(!conta){
 
 registrarErroLogin();
-
 return;
 
 }
-
 
 if(!conta.verificado){
 
@@ -1497,39 +1329,33 @@ return;
 
 }
 
-
-if(conta.senha !== senha){
+if(conta.senha!==senha){
 
 registrarErroLogin();
-
 return;
 
 }
 
-
-tentativasLogin = 0;
-bloqueioAte = 0;
+tentativasLogin=0;
+bloqueioAte=0;
 
 localStorage.setItem(
-"forestGuardTentativas",
-"0"
+"forestGuardTentativas","0"
 );
 
 localStorage.setItem(
-"forestGuardBloqueio",
-"0"
+"forestGuardBloqueio","0"
 );
-
 
 document.getElementById("login").style.display="none";
 document.getElementById("cadastro").style.display="none";
 document.getElementById("verificacao").style.display="none";
 document.getElementById("painel").style.display="block";
 
-
-localizar();
+atualizarVibracaoUI();
 atualizarHistorico();
-atualizarHistoricoVibracao();
+atualizarEventosVibracao();
+localizar();
 
 }
 
@@ -1540,16 +1366,14 @@ RELÓGIO
 
 function atualizarRelogio(){
 
-const agora = new Date();
+const agora=new Date();
 
 document.getElementById("relogio")
-.textContent =
-agora.toLocaleTimeString("pt-BR");
+.textContent=agora.toLocaleTimeString("pt-BR");
 
 document.getElementById("dataHora")
-.textContent =
-agora.toLocaleDateString("pt-BR") +
-" " +
+.textContent=
+agora.toLocaleDateString("pt-BR")+" "+
 agora.toLocaleTimeString("pt-BR");
 
 atualizarContador();
@@ -1557,7 +1381,6 @@ atualizarContador();
 }
 
 setInterval(atualizarRelogio,1000);
-
 atualizarRelogio();
 
 
@@ -1567,39 +1390,31 @@ LOCALIZAÇÃO
 
 function localizar(){
 
-const campo =
-document.getElementById("localizacao");
-
+const campo=document.getElementById("localizacao");
 
 if(!navigator.geolocation){
 
-campo.textContent =
-"Geolocalização não disponível";
-
+campo.textContent="Geolocalização não disponível";
 return;
 
 }
 
-
-campo.textContent =
-"Obtendo localização...";
-
+campo.textContent="Obtendo localização...";
 
 navigator.geolocation.getCurrentPosition(
 
 pos=>{
 
-campo.textContent =
-pos.coords.latitude.toFixed(5) +
-", " +
+campo.textContent=
+pos.coords.latitude.toFixed(5)+
+", "+
 pos.coords.longitude.toFixed(5);
 
 },
 
 ()=>{
 
-campo.textContent =
-"Permissão não concedida";
+campo.textContent="Permissão não concedida";
 
 }
 
@@ -1609,56 +1424,38 @@ campo.textContent =
 
 
 /* ============================================================
-RISCO
+TEMPERATURA / RISCO
 ============================================================ */
 
 function risco(temp){
 
-if(temp <= 25) return "NORMAL";
-
-if(temp <= 29) return "ATENCAO";
-
-return "PERIGO";
+if(temp<=25)return"NORMAL";
+if(temp<=29)return"ATENCAO";
+return"PERIGO";
 
 }
-
 
 function classe(status){
 
-if(status === "NORMAL") return "normal";
-
-if(status === "ATENCAO") return "atencao";
-
-return "perigo";
+if(status==="NORMAL")return"normal";
+if(status==="ATENCAO")return"atencao";
+return"perigo";
 
 }
 
-
-/* ============================================================
-MOSTRAR TEMPERATURA
-============================================================ */
-
 function mostrarTemperatura(temp){
 
-temperaturaAtual = temp;
+temperaturaAtual=temp;
 
 document.getElementById("temperatura")
-.textContent =
-temp.toFixed(1) + " °C";
+.textContent=temp.toFixed(1)+" °C";
 
+const status=risco(temp);
 
-const status = risco(temp);
+const elemento=document.getElementById("risco");
 
-
-const elemento =
-document.getElementById("risco");
-
-
-elemento.textContent = status;
-
-elemento.className =
-"risco " + classe(status);
-
+elemento.textContent=status;
+elemento.className="risco "+classe(status);
 
 salvarLeitura(temp);
 
@@ -1666,382 +1463,136 @@ salvarLeitura(temp);
 
 
 /* ============================================================
-SALVAR LEITURA
+LEITURAS
 ============================================================ */
 
 function salvarLeitura(temp){
 
-const agora = Date.now();
-
-
-if(
-ultimaLeitura !== 0 &&
-agora - ultimaLeitura < INTERVALO_LEITURA
-){
-
-return;
-
-}
-
-
-ultimaLeitura = agora;
-
-
-const data = new Date();
-
-const hora =
-String(data.getHours()).padStart(2,"0") +
-":00";
-
+const agora=Date.now();
 
 if(
-grupoHora &&
-grupoHora !== hora
-){
+ultimaLeitura!==0&&
+agora-ultimaLeitura<INTERVALO_LEITURA
+)return;
+
+ultimaLeitura=agora;
+
+const data=new Date();
+
+const hora=
+String(data.getHours()).padStart(2,"0")+":00";
+
+if(grupoHora&&grupoHora!==hora){
 
 fecharHora();
 
-leiturasHora = [];
+leiturasHora=[];
 
-document.getElementById(
-"tabelaAtual"
-).innerHTML="";
+document.getElementById("tabelaAtual")
+.innerHTML="";
 
 }
 
+grupoHora=hora;
 
-grupoHora = hora;
-
-
-const leitura = {
+const leitura={
 
 data:data.toLocaleDateString("pt-BR"),
-
 hora:data.toLocaleTimeString("pt-BR"),
-
 temperatura:temp,
-
 status:risco(temp)
 
 };
 
-
 leiturasHora.push(leitura);
 
+const linha=document.createElement("tr");
 
-const linha =
-document.createElement("tr");
-
-
-linha.innerHTML = `
-
+linha.innerHTML=`
 <td>${leitura.hora}</td>
-
 <td>${temp.toFixed(1)} °C</td>
-
 <td>
 <span class="badge ${classe(leitura.status)}">
 ${leitura.status}
 </span>
 </td>
-
 `;
 
-
-document
-.getElementById("tabelaAtual")
+document.getElementById("tabelaAtual")
 .prepend(linha);
 
 }
 
-
-/* ============================================================
-FECHAR HORA
-============================================================ */
-
 function fecharHora(){
 
-if(!leiturasHora.length) return;
+if(!leiturasHora.length)return;
 
-
-const valores =
-leiturasHora.map(
+const valores=leiturasHora.map(
 x=>x.temperatura
 );
 
+const minimo=Math.min(...valores);
+const maximo=Math.max(...valores);
 
-const minimo =
-Math.min(...valores);
-
-const maximo =
-Math.max(...valores);
-
-const media =
-valores.reduce(
+const media=valores.reduce(
 (a,b)=>a+b,0
-) / valores.length;
+)/valores.length;
 
+let status="NORMAL";
 
-let status = "NORMAL";
+if(maximo>=30)status="PERIGO";
+else if(maximo>25)status="ATENCAO";
 
-
-if(maximo >= 30)
-status = "PERIGO";
-
-else if(maximo > 25)
-status = "ATENCAO";
-
-
-const resumo = {
+const resumo={
 
 data:leiturasHora[0].data,
-
 hora:grupoHora,
-
 minimo:minimo,
-
 maximo:maximo,
-
 media:media,
-
 status:status
 
 };
 
-
 historico.push(resumo);
-
 
 localStorage.setItem(
 "forestGuardHistorico",
 JSON.stringify(historico)
 );
 
-
 atualizarHistorico();
 
 }
 
-
-/* ============================================================
-HISTÓRICO
-============================================================ */
-
 function atualizarHistorico(){
 
-const tabela =
-document.getElementById(
+const tabela=document.getElementById(
 "tabelaHistorico"
 );
 
 tabela.innerHTML="";
 
+historico.slice().reverse().forEach(item=>{
 
-historico
-.slice()
-.reverse()
-.forEach(item=>{
+const linha=document.createElement("tr");
 
-const linha =
-document.createElement("tr");
-
-
-linha.innerHTML = `
-
+linha.innerHTML=`
 <td>${item.data}</td>
-
 <td>${item.hora}</td>
-
 <td>${item.minimo.toFixed(1)} °C</td>
-
 <td>${item.maximo.toFixed(1)} °C</td>
-
 <td>${item.media.toFixed(1)} °C</td>
-
 <td>
 <span class="badge ${classe(item.status)}">
 ${item.status}
 </span>
 </td>
-
 `;
-
 
 tabela.appendChild(linha);
 
 });
-
-}
-
-
-/* ============================================================
-VIBRAÇÃO
-============================================================ */
-
-function registrarVibracao(){
-
-const agora = Date.now();
-
-vibracaoDetectada = true;
-ultimaVibracao = agora;
-
-
-const data = new Date(agora);
-
-
-const registro = {
-
-data:data.toLocaleDateString("pt-BR"),
-
-hora:data.toLocaleTimeString("pt-BR"),
-
-timestamp:agora,
-
-evento:"VIBRAÇÃO DETECTADA"
-
-};
-
-
-historicoVibracao.push(registro);
-
-
-if(historicoVibracao.length > 100){
-
-historicoVibracao =
-historicoVibracao.slice(-100);
-
-}
-
-
-localStorage.setItem(
-"forestGuardVibracao",
-JSON.stringify(historicoVibracao)
-);
-
-
-const elemento =
-document.getElementById("vibracaoStatus");
-
-
-elemento.textContent =
-"🚨 VIBRAÇÃO DETECTADA!";
-
-elemento.className =
-"vibracao vibracao-alerta";
-
-
-document.getElementById(
-"ultimaVibracao"
-).textContent =
-"Última detecção: " +
-registro.data +
-" às " +
-registro.hora;
-
-
-atualizarHistoricoVibracao();
-
-
-setTimeout(()=>{
-
-vibracaoDetectada = false;
-
-const atual =
-document.getElementById(
-"vibracaoStatus"
-);
-
-if(atual){
-
-atual.textContent =
-"🟢 SEM VIBRAÇÃO";
-
-atual.className =
-"vibracao vibracao-normal";
-
-}
-
-},5000);
-
-}
-
-
-function atualizarHistoricoVibracao(){
-
-const tabela =
-document.getElementById(
-"tabelaVibracao"
-);
-
-
-if(!tabela) return;
-
-
-tabela.innerHTML="";
-
-
-historicoVibracao
-.slice()
-.reverse()
-.forEach(item=>{
-
-const linha =
-document.createElement("tr");
-
-
-linha.innerHTML = `
-
-<td>${item.data}</td>
-
-<td>${item.hora}</td>
-
-<td>
-<span class="badge perigo">
-📳 ${item.evento}
-</span>
-</td>
-
-`;
-
-
-tabela.appendChild(linha);
-
-});
-
-
-if(historicoVibracao.length){
-
-const ultima =
-historicoVibracao[
-historicoVibracao.length-1
-];
-
-
-document.getElementById(
-"ultimaVibracao"
-).textContent =
-"Última detecção: " +
-ultima.data +
-" às " +
-ultima.hora;
-
-}
-
-}
-
-
-/* ============================================================
-TESTE DE VIBRAÇÃO
-============================================================ */
-
-function testarVibracao(){
-
-registrarVibracao();
-
-adicionarMensagem(
-"🧪 Teste realizado: o sistema registrou uma vibração simulada.",
-"bot"
-);
 
 }
 
@@ -2054,65 +1605,197 @@ function atualizarContador(){
 
 if(!ultimaLeitura){
 
-document.getElementById(
-"proxima"
-).textContent =
-"Aguardando primeira leitura";
+document.getElementById("proxima")
+.textContent="Aguardando primeira leitura";
 
 return;
 
 }
 
-
-const restante =
-INTERVALO_LEITURA -
+const restante=
+INTERVALO_LEITURA-
 (Date.now()-ultimaLeitura);
 
+if(restante<=0){
 
-if(restante <= 0){
-
-document.getElementById(
-"proxima"
-).textContent =
-"Pronta para leitura";
+document.getElementById("proxima")
+.textContent="Pronta para leitura";
 
 return;
 
 }
 
+const minutos=Math.floor(restante/60000);
 
-const minutos =
-Math.floor(restante/60000);
-
-const segundos =
-Math.floor(
+const segundos=Math.floor(
 (restante%60000)/1000
 );
 
-
-document.getElementById(
-"proxima"
-).textContent =
-
-String(minutos).padStart(2,"0") +
-":" +
+document.getElementById("proxima")
+.textContent=
+String(minutos).padStart(2,"0")+
+":"+
 String(segundos).padStart(2,"0");
 
 }
 
 
 /* ============================================================
-TESTE DE TEMPERATURA
+TESTE TEMPERATURA
 ============================================================ */
 
 function testeTemperatura(){
 
-const temp =
-Math.floor(
+const temp=Math.floor(
 Math.random()*16
-) + 20;
+)+20;
 
 mostrarTemperatura(temp);
+
+}
+
+
+/* ============================================================
+VIBRAÇÃO
+============================================================ */
+
+function registrarVibracao(origem="SENSOR"){
+
+const agora=new Date();
+
+totalVibracoes++;
+
+vibracaoDetectada=true;
+
+const evento={
+
+data:agora.toLocaleDateString("pt-BR"),
+
+hora:agora.toLocaleTimeString("pt-BR"),
+
+origem:origem
+
+};
+
+eventosVibracao.push(evento);
+
+if(eventosVibracao.length>100){
+
+eventosVibracao=
+eventosVibracao.slice(-100);
+
+}
+
+localStorage.setItem(
+"forestGuardVibracoes",
+JSON.stringify(eventosVibracao)
+);
+
+atualizarVibracaoUI();
+atualizarEventosVibracao();
+
+}
+
+function definirVibracao(detectada,registrar=true){
+
+vibracaoDetectada=!!detectada;
+
+if(
+vibracaoDetectada&&
+registrar
+){
+
+registrarVibracao("SENSOR");
+
+return;
+
+}
+
+atualizarVibracaoUI();
+
+}
+
+function atualizarVibracaoUI(){
+
+const elemento=
+document.getElementById("vibracao");
+
+if(!elemento)return;
+
+if(vibracaoDetectada){
+
+elemento.textContent=
+"📳 VIBRAÇÃO DETECTADA";
+
+elemento.className=
+"vibracao detectada";
+
+}else{
+
+elemento.textContent=
+"SEM VIBRAÇÃO";
+
+elemento.className=
+"vibracao normal";
+
+}
+
+document.getElementById(
+"contadorVibracao"
+).textContent=
+eventosVibracao.length;
+
+}
+
+function atualizarEventosVibracao(){
+
+const tabela=
+document.getElementById(
+"tabelaVibracao"
+);
+
+if(!tabela)return;
+
+tabela.innerHTML="";
+
+eventosVibracao
+.slice()
+.reverse()
+.forEach(evento=>{
+
+const linha=document.createElement("tr");
+
+linha.innerHTML=`
+<td>${evento.data}</td>
+<td>${evento.hora}</td>
+<td>
+<span class="badge badge-vibracao">
+📳 VIBRAÇÃO DETECTADA
+</span>
+</td>
+`;
+
+tabela.appendChild(linha);
+
+});
+
+}
+
+function testeVibracao(){
+
+registrarVibracao("TESTE DO SITE");
+
+adicionarMensagem(
+"📳 Teste realizado. O sistema registrou uma vibração de teste.",
+"bot"
+);
+
+setTimeout(()=>{
+
+vibracaoDetectada=false;
+atualizarVibracaoUI();
+
+},3000);
 
 }
 
@@ -2133,30 +1816,21 @@ return;
 
 }
 
-
 try{
 
-porta =
-await navigator.serial.requestPort();
+porta=await navigator.serial.requestPort();
 
 await porta.open({
 baudRate:9600
 });
 
+document.getElementById("status")
+.textContent="🟢 Arduino conectado";
 
-document.getElementById(
-"status"
-).textContent =
-"🟢 Arduino conectado";
-
-
-document.getElementById(
-"status"
-).classList.add("ok");
-
+document.getElementById("status")
+.classList.add("ok");
 
 lerArduino();
-
 
 }catch(erro){
 
@@ -2170,44 +1844,27 @@ alert(
 
 }
 
-
-/* ============================================================
-LEITURA SERIAL
-============================================================ */
-
 async function lerArduino(){
 
-leitor =
-porta.readable.getReader();
+leitor=porta.readable.getReader();
 
-
-const decoder =
-new TextDecoder();
-
+const decoder=new TextDecoder();
 
 try{
 
 while(true){
 
-const {value,done} =
-await leitor.read();
+const {value,done}=await leitor.read();
 
-if(done) break;
-
+if(done)break;
 
 if(value){
 
-buffer +=
-decoder.decode(value);
+buffer+=decoder.decode(value);
 
+const linhas=buffer.split("\n");
 
-const linhas =
-buffer.split("\n");
-
-
-buffer =
-linhas.pop();
-
+buffer=linhas.pop();
 
 linhas.forEach(
 processarArduino
@@ -2235,91 +1892,61 @@ PROCESSAR ARDUINO
 
 function processarArduino(linha){
 
-linha = linha.trim();
+linha=linha.trim();
+
+if(!linha)return;
 
 
-if(!linha) return;
-
-
-/* ------------------------------------------------------------
-TEMPERATURA
-Formato esperado:
-
-TEMP=28;STATUS=ATENCAO
------------------------------------------------------------- */
+/* TEMPERATURA */
 
 if(linha.startsWith("TEMP=")){
 
-const partes =
-linha.split(";");
+const partes=linha.split(";");
 
+const tempTexto=partes[0]
+.replace("TEMP=","");
 
-const valor =
-parseFloat(
-partes[0].replace("TEMP=","")
-);
+const valor=parseFloat(tempTexto);
 
-
-if(!isNaN(valor)){
-
+if(!isNaN(valor))
 mostrarTemperatura(valor);
 
 }
 
-}
 
+/* VIBRAÇÃO */
 
-/* ------------------------------------------------------------
-VIBRAÇÃO
-Formato esperado:
+if(
+linha.includes("VIBRACAO=1")||
+linha.includes("VIBRACAO=DETECTADA")||
+linha.includes("VIBRACAO=SIM")
+){
 
-VIBRACAO=1
+if(!vibracaoDetectada){
 
-ou
+registrarVibracao("ARDUINO");
 
-VIBRACAO=0
------------------------------------------------------------- */
-
-if(linha.includes("VIBRACAO=")){
-
-const partes =
-linha.split(";");
-
-
-for(let parte of partes){
-
-parte = parte.trim();
-
-
-if(parte === "VIBRACAO=1"){
-
-registrarVibracao();
-
-}
-
-
-else if(parte === "VIBRACAO=0"){
-
-vibracaoDetectada = false;
-
-const elemento =
-document.getElementById(
-"vibracaoStatus"
+adicionarMensagem(
+"📳 Atenção! O sensor detectou uma vibração no ambiente. Isso pode indicar movimentação, impacto ou atividade próxima. 🌳",
+"bot"
 );
 
-if(elemento){
+}
 
-elemento.textContent =
-"🟢 SEM VIBRAÇÃO";
-
-elemento.className =
-"vibracao vibracao-normal";
+return;
 
 }
 
-}
 
-}
+if(
+linha.includes("VIBRACAO=0")||
+linha.includes("VIBRACAO=NORMAL")||
+linha.includes("VIBRACAO=NAO")
+){
+
+vibracaoDetectada=false;
+
+atualizarVibracaoUI();
 
 }
 
@@ -2333,55 +1960,36 @@ LIMPAR HISTÓRICO
 function limparHistorico(){
 
 if(!confirm(
-"Apagar todo o histórico?"
-)) return;
-
+"Apagar todo o histórico de temperatura e vibração?"
+))return;
 
 historico=[];
 leiturasHora=[];
-historicoVibracao=[];
-
+eventosVibracao=[];
+totalVibracoes=0;
+vibracaoDetectada=false;
 
 localStorage.removeItem(
 "forestGuardHistorico"
 );
 
 localStorage.removeItem(
-"forestGuardVibracao"
+"forestGuardVibracoes"
 );
-
 
 document.getElementById(
 "tabelaHistorico"
 ).innerHTML="";
 
-
 document.getElementById(
 "tabelaAtual"
 ).innerHTML="";
-
 
 document.getElementById(
 "tabelaVibracao"
 ).innerHTML="";
 
-
-document.getElementById(
-"ultimaVibracao"
-).textContent =
-"Nenhuma detecção registrada";
-
-
-document.getElementById(
-"vibracaoStatus"
-).textContent =
-"🟢 SEM VIBRAÇÃO";
-
-
-document.getElementById(
-"vibracaoStatus"
-).className =
-"vibracao vibracao-normal";
+atualizarVibracaoUI();
 
 }
 
@@ -2390,60 +1998,38 @@ document.getElementById(
 FOREST GUARD AI
 ============================================================ */
 
-function adicionarMensagem(
-texto,
-tipo
-){
+function adicionarMensagem(texto,tipo){
 
-const mensagens =
-document.getElementById(
-"mensagens"
-);
+const mensagens=
+document.getElementById("mensagens");
 
+const div=document.createElement("div");
 
-const div =
-document.createElement("div");
-
-
-div.className =
-"msg " + tipo;
-
-
-div.textContent = texto;
-
+div.className="msg "+tipo;
+div.textContent=texto;
 
 mensagens.appendChild(div);
 
-
-mensagens.scrollTop =
+mensagens.scrollTop=
 mensagens.scrollHeight;
 
 }
 
-
 function enviarPergunta(){
 
-const input =
-document.getElementById(
-"pergunta"
-);
+const input=
+document.getElementById("pergunta");
 
+const pergunta=input.value.trim();
 
-const pergunta =
-input.value.trim();
-
-
-if(!pergunta) return;
-
+if(!pergunta)return;
 
 adicionarMensagem(
 pergunta,
 "usuario"
 );
 
-
 input.value="";
-
 
 setTimeout(
 ()=>responderIA(pergunta),
@@ -2452,13 +2038,11 @@ setTimeout(
 
 }
 
-
 function perguntar(texto){
 
 document.getElementById(
 "pergunta"
 ).value=texto;
-
 
 enviarPergunta();
 
@@ -2471,8 +2055,7 @@ CÉREBRO DA IA
 
 function responderIA(pergunta){
 
-const p =
-pergunta
+const p=pergunta
 .toLowerCase()
 .normalize("NFD")
 .replace(
@@ -2480,146 +2063,128 @@ pergunta
 ""
 );
 
-
 let resposta="";
 
 
-/* ------------------------------------------------------------
-VIBRAÇÃO
------------------------------------------------------------- */
+/* VIBRAÇÃO */
 
 if(
-p.includes("vibracao") ||
-p.includes("vibrou") ||
-p.includes("tremeu") ||
-p.includes("tremor") ||
-p.includes("desmatamento") ||
-p.includes("corte de arvore") ||
-p.includes("atividade suspeita")
+p.includes("vibracao")||
+p.includes("vibrando")||
+p.includes("treme")||
+p.includes("tremendo")||
+p.includes("movimento")
 ){
-
-if(!historicoVibracao.length){
-
-resposta =
-"Até agora não há nenhuma vibração registrada no histórico. 📳🌲 O sensor está aguardando uma detecção.";
-
-}
-
-else{
-
-const ultima =
-historicoVibracao[
-historicoVibracao.length-1
-];
-
-
-resposta =
-"🚨 Sim. O Forest Guard registrou vibração. A última detecção foi em " +
-ultima.data +
-" às " +
-ultima.hora +
-". " +
-"Isso pode indicar uma atividade no ambiente, mas o sensor sozinho não consegue confirmar que houve desmatamento.";
-
-}
-
-}
-
-
-/* ------------------------------------------------------------
-COMO ESTÁ A ESTAÇÃO
------------------------------------------------------------- */
-
-else if(
-p.includes("como esta") ||
-p.includes("situacao") ||
-p.includes("estacao") ||
-p.includes("agora")
-){
-
-if(temperaturaAtual === null){
-
-resposta =
-"Ainda não recebi uma temperatura do sensor. 🌲 Conecte o Arduino ou use o botão de teste.";
-
-}
-
-else{
-
-const r =
-risco(temperaturaAtual);
-
-
-resposta =
-"Agora a estação está em " +
-temperaturaAtual.toFixed(1) +
-" °C. O nível atual é " +
-r +
-". ";
-
-
-if(r==="NORMAL")
-resposta +=
-"A temperatura está dentro da faixa normal.";
-
-else if(r==="ATENCAO")
-resposta +=
-"A temperatura está elevada e merece atenção.";
-
-else
-resposta +=
-"A temperatura atingiu a faixa de perigo.";
 
 if(vibracaoDetectada){
 
-resposta +=
-" 🚨 E o sensor de vibração também detectou atividade.";
+resposta=
+"📳 Sim. O sensor de vibração está detectando movimentação neste momento. Isso pode representar impacto, movimentação do solo, atividade humana ou outro evento próximo. O sensor sozinho não consegue confirmar desmatamento.";
+
+}else{
+
+resposta=
+"🟢 Não há vibração detectada neste momento. O sensor está em estado normal.";
 
 }
 
 }
 
-}
 
-
-/* ------------------------------------------------------------
-MAIOR TEMPERATURA
------------------------------------------------------------- */
+/* DESMATAMENTO */
 
 else if(
-p.includes("maior") ||
-p.includes("maxima") ||
+p.includes("desmatamento")||
+p.includes("derrubada")||
+p.includes("arvore")||
+p.includes("arvores")
+){
+
+if(vibracaoDetectada){
+
+resposta=
+"🚨 O Forest Guard detectou vibração. Isso pode ser um sinal de atividade ou movimentação próxima, mas não significa automaticamente desmatamento. Para confirmar uma derrubada de árvores, seriam necessários outros sensores ou uma câmera.";
+
+}else{
+
+resposta=
+"🌳 Neste momento não há vibração registrada pelo sensor. O sistema não detectou um possível evento de movimentação.";
+
+}
+
+}
+
+
+/* SITUAÇÃO */
+
+else if(
+p.includes("como esta")||
+p.includes("situacao")||
+p.includes("estacao")||
+p.includes("agora")
+){
+
+if(temperaturaAtual===null){
+
+resposta=
+"Ainda não recebi uma temperatura do sensor. 🌲 Conecte o Arduino ou use o botão de teste.";
+
+}else{
+
+const r=risco(temperaturaAtual);
+
+resposta=
+"Agora a estação está em "+
+temperaturaAtual.toFixed(1)+
+" °C. O nível atual é "+
+r+". ";
+
+if(vibracaoDetectada){
+
+resposta+=
+"📳 Também existe vibração detectada no momento.";
+
+}else{
+
+resposta+=
+"📳 O sensor de vibração está normal.";
+
+}
+
+}
+
+}
+
+
+/* MAIOR TEMPERATURA */
+
+else if(
+p.includes("maior")||
+p.includes("maxima")||
 p.includes("mais quente")
 ){
 
-const valores =
-historico
-.map(x=>x.maximo)
+const valores=
+historico.map(x=>x.maximo)
 .concat(
 leiturasHora.map(
 x=>x.temperatura
 )
 );
 
-
-if(temperaturaAtual !== null)
-valores.push(
-temperaturaAtual
-);
-
+if(temperaturaAtual!==null)
+valores.push(temperaturaAtual);
 
 if(!valores.length){
 
-resposta =
-"Ainda não tenho histórico suficiente para descobrir a maior temperatura.";
+resposta=
+"Ainda não tenho dados suficientes.";
 
-}
+}else{
 
-else{
-
-resposta =
-"A maior temperatura registrada pelo Forest Guard até agora foi " +
-Math.max(...valores).toFixed(1) +
+resposta=
+"A maior temperatura registrada foi "+
+Math.max(...valores).toFixed(1)+
 " °C. 🔥";
 
 }
@@ -2627,38 +2192,32 @@ Math.max(...valores).toFixed(1) +
 }
 
 
-/* ------------------------------------------------------------
-MENOR TEMPERATURA
------------------------------------------------------------- */
+/* MENOR TEMPERATURA */
 
 else if(
-p.includes("menor") ||
-p.includes("minima") ||
+p.includes("menor")||
+p.includes("minima")||
 p.includes("mais fria")
 ){
 
-const valores =
-historico
-.map(x=>x.minimo)
+const valores=
+historico.map(x=>x.minimo)
 .concat(
 leiturasHora.map(
 x=>x.temperatura
 )
 );
 
-
 if(!valores.length){
 
-resposta =
+resposta=
 "Ainda não tenho dados suficientes.";
 
-}
+}else{
 
-else{
-
-resposta =
-"A menor temperatura registrada foi " +
-Math.min(...valores).toFixed(1) +
+resposta=
+"A menor temperatura registrada foi "+
+Math.min(...valores).toFixed(1)+
 " °C. ❄️";
 
 }
@@ -2666,60 +2225,51 @@ Math.min(...valores).toFixed(1) +
 }
 
 
-/* ------------------------------------------------------------
-TEMPERATURA SUBINDO
------------------------------------------------------------- */
+/* TEMPERATURA SUBINDO */
 
 else if(
-p.includes("subindo") ||
-p.includes("aumentando") ||
+p.includes("subindo")||
+p.includes("aumentando")||
 p.includes("aumento")
 ){
 
-if(leiturasHora.length < 2){
+if(leiturasHora.length<2){
 
-resposta =
+resposta=
 "Ainda preciso de pelo menos duas leituras para analisar uma tendência.";
 
-}
+}else{
 
-else{
-
-const primeira =
+const primeira=
 leiturasHora[0].temperatura;
 
-const ultima =
+const ultima=
 leiturasHora[
 leiturasHora.length-1
 ].temperatura;
 
+if(ultima>primeira){
 
-if(ultima > primeira){
-
-resposta =
-"Sim. 📈 A temperatura está subindo. A primeira leitura desta hora foi " +
-primeira.toFixed(1) +
-" °C e a última foi " +
-ultima.toFixed(1) +
+resposta=
+"📈 Sim. A temperatura está subindo, passando de "+
+primeira.toFixed(1)+
+" °C para "+
+ultima.toFixed(1)+
 " °C.";
 
-}
+}else if(ultima<primeira){
 
-else if(ultima < primeira){
-
-resposta =
-"Não. 📉 A temperatura está diminuindo. Ela passou de " +
-primeira.toFixed(1) +
-" °C para " +
-ultima.toFixed(1) +
+resposta=
+"📉 Não. A temperatura está diminuindo, passando de "+
+primeira.toFixed(1)+
+" °C para "+
+ultima.toFixed(1)+
 " °C.";
 
-}
+}else{
 
-else{
-
-resposta =
-"A temperatura está praticamente estável nesta hora.";
+resposta=
+"A temperatura está praticamente estável.";
 
 }
 
@@ -2728,110 +2278,73 @@ resposta =
 }
 
 
-/* ------------------------------------------------------------
-RESUMO
------------------------------------------------------------- */
+/* RESUMO */
 
 else if(
-p.includes("resumo") ||
+p.includes("resumo")||
 p.includes("historico")
 ){
 
-let textoTemperatura = "";
+const vibracoes=eventosVibracao.length;
 
+if(!historico.length&&
+temperaturaAtual===null){
 
-if(!historico.length){
+resposta=
+"Ainda não tenho dados suficientes para fazer um resumo.";
 
-textoTemperatura =
-"Ainda não existe uma hora fechada no histórico.";
+}else{
 
-}
+resposta=
+"📊 Resumo do Forest Guard: ";
 
-else{
+if(temperaturaAtual!==null){
 
-const ultimo =
-historico[
-historico.length-1
-];
-
-
-textoTemperatura =
-"Na última hora registrada: mínima de " +
-ultimo.minimo.toFixed(1) +
-" °C, máxima de " +
-ultimo.maximo.toFixed(1) +
-" °C, média de " +
-ultimo.media.toFixed(1) +
-" °C e situação " +
-ultimo.status +
-". ";
+resposta+=
+"temperatura atual de "+
+temperaturaAtual.toFixed(1)+
+" °C, situação "+
+risco(temperaturaAtual)+". ";
 
 }
 
-
-let textoVibracao = "";
-
-
-if(historicoVibracao.length){
-
-textoVibracao =
-"Também existem " +
-historicoVibracao.length +
-" detecção(ões) de vibração registrada(s). 📳";
+resposta+=
+"📳 Foram registrados "+
+vibracoes+
+" evento(s) de vibração.";
 
 }
-
-else{
-
-textoVibracao =
-"Nenhuma vibração foi registrada.";
 
 }
 
 
-resposta =
-"📊 Resumo do Forest Guard: " +
-textoTemperatura +
-textoVibracao;
-
-}
-
-
-/* ------------------------------------------------------------
-PERIGO / RISCO
------------------------------------------------------------- */
+/* PERIGO */
 
 else if(
-p.includes("perigo") ||
-p.includes("risco") ||
+p.includes("perigo")||
+p.includes("risco")||
 p.includes("seguro")
 ){
 
-if(temperaturaAtual === null){
+if(temperaturaAtual===null){
 
-resposta =
+resposta=
 "Ainda não recebi a temperatura atual.";
 
-}
+}else{
 
-else{
+const r=risco(temperaturaAtual);
 
-const r =
-risco(temperaturaAtual);
-
-
-resposta =
-"Com " +
-temperaturaAtual.toFixed(1) +
-" °C, a classificação atual é " +
-r +
-".";
-
+resposta=
+"Com "+
+temperaturaAtual.toFixed(1)+
+" °C, a classificação atual é "+
+r+".";
 
 if(vibracaoDetectada){
 
-resposta +=
-" Além disso, há uma detecção de vibração ativa. 🚨";
+resposta+=
+" Além disso, existe vibração detectada.";
 
 }
 
@@ -2840,81 +2353,52 @@ resposta +=
 }
 
 
-/* ------------------------------------------------------------
-QUANTAS VIBRAÇÕES
------------------------------------------------------------- */
+/* OLÁ */
 
 else if(
-p.includes("quantas vibracoes") ||
-p.includes("numero de vibracoes") ||
-p.includes("quantas vezes vibrou")
+p.includes("oi")||
+p.includes("ola")||
+p.includes("hello")||
+p.includes("bom dia")||
+p.includes("boa tarde")||
+p.includes("boa noite")
 ){
 
-resposta =
-"O Forest Guard registrou " +
-historicoVibracao.length +
-" detecção(ões) de vibração até agora. 📳";
+resposta=
+"Olá! 🌲🤖 Sou a Forest Guard AI. Posso analisar temperatura, vibração, risco, histórico e possíveis eventos ambientais.";
 
 }
 
 
-/* ------------------------------------------------------------
-ÚLTIMA VIBRAÇÃO
------------------------------------------------------------- */
+/* QUEM É */
 
 else if(
-p.includes("ultima vibracao") ||
-p.includes("quando vibrou") ||
-p.includes("quando foi a vibracao")
+p.includes("quem e voce")||
+p.includes("o que voce e")
 ){
 
-if(!historicoVibracao.length){
-
-resposta =
-"Nenhuma vibração foi registrada até agora.";
-
-}
-
-else{
-
-const ultima =
-historicoVibracao[
-historicoVibracao.length-1
-];
-
-
-resposta =
-"A última vibração foi registrada em " +
-ultima.data +
-" às " +
-ultima.hora +
-". 📳";
-
-}
+resposta=
+"Eu sou a Forest Guard AI, a assistente do sistema. Analiso os dados enviados pelo Arduino, incluindo temperatura e vibração.";
 
 }
 
 
-/* ------------------------------------------------------------
-TEMPERATURA
------------------------------------------------------------- */
+/* TEMPERATURA */
 
 else if(
 p.includes("temperatura")
 ){
 
-if(temperaturaAtual === null){
+if(temperaturaAtual===null){
 
-resposta =
+resposta=
 "Ainda não recebi nenhuma temperatura.";
 
-}
+}else{
 
-else{
-
-resposta =
-"A temperatura atual registrada é " +
-temperaturaAtual.toFixed(1) +
+resposta=
+"A temperatura atual é "+
+temperaturaAtual.toFixed(1)+
 " °C.";
 
 }
@@ -2922,51 +2406,14 @@ temperaturaAtual.toFixed(1) +
 }
 
 
-/* ------------------------------------------------------------
-SAUDAÇÃO
------------------------------------------------------------- */
-
-else if(
-p.includes("oi") ||
-p.includes("ola") ||
-p.includes("hello") ||
-p.includes("bom dia") ||
-p.includes("boa tarde") ||
-p.includes("boa noite")
-){
-
-resposta =
-"Olá! 🌲 Estou aqui. Pode conversar comigo sobre o Forest Guard, temperatura, risco, vibração, possíveis atividades ambientais ou histórico.";
-
-}
-
-
-/* ------------------------------------------------------------
-QUEM É A IA
------------------------------------------------------------- */
-
-else if(
-p.includes("quem e voce") ||
-p.includes("o que voce e")
-){
-
-resposta =
-"Eu sou a Forest Guard AI, a assistente do seu sistema de monitoramento ambiental. Minha função é interpretar os dados da estação e conversar com você sobre temperatura, risco e vibração. 🌲🤖";
-
-}
-
-
-/* ------------------------------------------------------------
-RESPOSTA PADRÃO
------------------------------------------------------------- */
+/* PADRÃO */
 
 else{
 
-resposta =
-"Entendi o que você disse, mas ainda estou aprendendo essa pergunta. 🌲 Tente perguntar sobre temperatura, risco, vibração, possível desmatamento ou histórico.";
+resposta=
+"Entendi. 🌲 Posso analisar temperatura, vibração, risco, desmatamento, histórico ou tendência. Tente perguntar: 'Tem vibração?' ou 'Foi detectado desmatamento?'";
 
 }
-
 
 adicionarMensagem(
 resposta,
@@ -2981,8 +2428,8 @@ INICIALIZAÇÃO
 ============================================================ */
 
 atualizarHistorico();
-
-atualizarHistoricoVibracao();
+atualizarEventosVibracao();
+atualizarVibracaoUI();
 
 </script>
 
