@@ -86,7 +86,9 @@ color:white;
 outline:none;
 }
 
-input:focus{border-color:var(--claro)}
+input:focus{
+border-color:var(--claro);
+}
 
 .btn{
 border:0;
@@ -98,7 +100,9 @@ font-weight:bold;
 cursor:pointer;
 }
 
-.btn:hover{filter:brightness(1.2)}
+.btn:hover{
+filter:brightness(1.2);
+}
 
 .btn-largo{
 width:100%;
@@ -204,7 +208,9 @@ margin-bottom:18px;
 color:#d9e9df;
 }
 
-.local strong{color:var(--verde2)}
+.local strong{
+color:var(--verde2);
+}
 
 .grid{
 display:grid;
@@ -312,7 +318,9 @@ border-bottom:1px solid rgba(255,255,255,.06);
 text-align:center;
 }
 
-th{color:var(--verde2)}
+th{
+color:var(--verde2);
+}
 
 .badge{
 padding:5px 9px;
@@ -327,7 +335,9 @@ border:1px solid var(--laranja);
 color:#ffb76b;
 }
 
-#ia{margin-top:25px}
+#ia{
+margin-top:25px;
+}
 
 .ia-topo{
 display:flex;
@@ -407,7 +417,9 @@ display:flex;
 gap:8px;
 }
 
-.entrada-ia input{flex:1}
+.entrada-ia input{
+flex:1;
+}
 
 #historico{
 max-height:400px;
@@ -415,10 +427,21 @@ overflow:auto;
 }
 
 @media(max-width:600px){
-.tela{padding:10px}
-.card{padding:17px}
-.temperatura{font-size:35px}
-.entrada-ia{flex-direction:column}
+.tela{
+padding:10px;
+}
+
+.card{
+padding:17px;
+}
+
+.temperatura{
+font-size:35px;
+}
+
+.entrada-ia{
+flex-direction:column;
+}
 }
 </style>
 
@@ -435,11 +458,13 @@ overflow:auto;
 Sistema de monitoramento ambiental
 </div>
 
-<label>E-mail</label> <input id="email" type="email" placeholder="seu@email.com" autocomplete="email">
+<label>E-mail</label>
+<input id="email" type="email" placeholder="seu@email.com" autocomplete="email">
 
 <br><br>
 
-<label>Senha</label> <input id="senha" type="password" placeholder="••••••••"
+<label>Senha</label>
+<input id="senha" type="password" placeholder="••••••••"
 autocomplete="current-password"
 onkeydown="if(event.key==='Enter') entrar()">
 
@@ -469,17 +494,20 @@ Entrar no Forest Guard
 Crie sua conta no Forest Guard
 </div>
 
-<label>E-mail</label> <input id="cadastroEmail" type="email"
+<label>E-mail</label>
+<input id="cadastroEmail" type="email"
 placeholder="seu@email.com">
 
 <br><br>
 
-<label>Senha</label> <input id="cadastroSenha" type="password"
+<label>Senha</label>
+<input id="cadastroSenha" type="password"
 placeholder="Mínimo de 6 caracteres">
 
 <br><br>
 
-<label>Confirmar senha</label> <input id="cadastroConfirmar" type="password"
+<label>Confirmar senha</label>
+<input id="cadastroConfirmar" type="password"
 placeholder="Digite a senha novamente"
 onkeydown="if(event.key==='Enter') cadastrar()">
 
@@ -561,11 +589,13 @@ onkeydown="if(event.key==='Enter') verificarCodigo()">
 
 <div class="local">
 
-📍 <strong>Localização:</strong> <span id="localizacao">Aguardando permissão...</span>
+📍 <strong>Localização:</strong>
+<span id="localizacao">Aguardando permissão...</span>
 
 <br><br>
 
-🕐 <strong>Data e hora:</strong> <span id="dataHora">--</span>
+🕐 <strong>Data e hora:</strong>
+<span id="dataHora">--</span>
 
 </div>
 
@@ -808,27 +838,33 @@ Você pode perguntar:
 
 <button class="atalho"
 onclick="perguntar('Como está a estação?')">
-🌡️ Como está? </button>
+🌡️ Como está?
+</button>
 
 <button class="atalho"
 onclick="perguntar('Tem vibração?')">
-📳 Vibração </button>
+📳 Vibração
+</button>
 
 <button class="atalho"
 onclick="perguntar('Foi detectado desmatamento?')">
-🌳 Desmatamento </button>
+🌳 Desmatamento
+</button>
 
 <button class="atalho"
 onclick="perguntar('Qual foi a maior temperatura?')">
-🔥 Maior temperatura </button>
+🔥 Maior temperatura
+</button>
 
 <button class="atalho"
 onclick="perguntar('A temperatura está subindo?')">
-📈 Está subindo? </button>
+📈 Está subindo?
+</button>
 
 <button class="atalho"
 onclick="perguntar('Faça um resumo')">
-📊 Resumo </button>
+📊 Resumo
+</button>
 
 </div>
 
@@ -859,9 +895,11 @@ const EMAILJS_PUBLIC_KEY="3VKE9f-uIWaVsK3gV";
 const EMAILJS_SERVICE_ID="service_jn1xv5g";
 const EMAILJS_TEMPLATE_ID="template_ynkxnpa";
 
+if(typeof emailjs!=="undefined"){
 emailjs.init({
 publicKey:EMAILJS_PUBLIC_KEY
 });
+}
 
 
 /* ============================================================
@@ -921,6 +959,8 @@ function mostrarMensagem(id,texto,tipo){
 
 const elemento=document.getElementById(id);
 
+if(!elemento)return;
+
 elemento.textContent=texto;
 elemento.className="mensagem-login "+tipo;
 
@@ -929,6 +969,8 @@ elemento.className="mensagem-login "+tipo;
 function limparMensagem(id){
 
 const elemento=document.getElementById(id);
+
+if(!elemento)return;
 
 elemento.textContent="";
 elemento.className="mensagem-login";
@@ -966,6 +1008,8 @@ document.getElementById("painel").style.display="none";
 
 document.getElementById("emailVerificacao").textContent=email;
 
+limparMensagem("mensagemVerificacao");
+
 }
 
 
@@ -982,6 +1026,13 @@ Math.floor(100000+Math.random()*900000)
 }
 
 async function enviarCodigoEmail(email,codigo){
+
+if(typeof emailjs==="undefined"){
+
+console.error("EmailJS não carregou.");
+return false;
+
+}
 
 try{
 
@@ -1019,6 +1070,8 @@ return false;
 
 }
 
+}
+
 
 /* ============================================================
 CADASTRO
@@ -1034,8 +1087,11 @@ const confirmar=document.getElementById("cadastroConfirmar").value;
 
 if(!email){
 
-mostrarMensagem("mensagemCadastro",
-"Digite seu e-mail.","erro");
+mostrarMensagem(
+"mensagemCadastro",
+"Digite seu e-mail.",
+"erro"
+);
 
 return;
 
@@ -1043,8 +1099,11 @@ return;
 
 if(!email.includes("@")||!email.includes(".")){
 
-mostrarMensagem("mensagemCadastro",
-"Digite um e-mail válido.","erro");
+mostrarMensagem(
+"mensagemCadastro",
+"Digite um e-mail válido.",
+"erro"
+);
 
 return;
 
@@ -1052,8 +1111,11 @@ return;
 
 if(senha.length<6){
 
-mostrarMensagem("mensagemCadastro",
-"A senha precisa ter pelo menos 6 caracteres.","erro");
+mostrarMensagem(
+"mensagemCadastro",
+"A senha precisa ter pelo menos 6 caracteres.",
+"erro"
+);
 
 return;
 
@@ -1061,8 +1123,11 @@ return;
 
 if(senha!==confirmar){
 
-mostrarMensagem("mensagemCadastro",
-"As senhas não são iguais.","erro");
+mostrarMensagem(
+"mensagemCadastro",
+"As senhas não são iguais.",
+"erro"
+);
 
 return;
 
@@ -1070,8 +1135,11 @@ return;
 
 if(contas[email]){
 
-mostrarMensagem("mensagemCadastro",
-"Este e-mail já possui uma conta.","erro");
+mostrarMensagem(
+"mensagemCadastro",
+"Este e-mail já possui uma conta.",
+"erro"
+);
 
 return;
 
@@ -1670,9 +1738,7 @@ vibracaoDetectada=true;
 const evento={
 
 data:agora.toLocaleDateString("pt-BR"),
-
 hora:agora.toLocaleTimeString("pt-BR"),
-
 origem:origem
 
 };
@@ -1816,6 +1882,26 @@ return;
 
 }
 
+if(porta){
+
+try{
+
+if(porta.readable){
+
+alert("O Arduino já está conectado.");
+
+return;
+
+}
+
+}catch(erro){
+
+console.error(erro);
+
+}
+
+}
+
 try{
 
 porta=await navigator.serial.requestPort();
@@ -1830,11 +1916,19 @@ document.getElementById("status")
 document.getElementById("status")
 .classList.add("ok");
 
+buffer="";
+
 lerArduino();
 
 }catch(erro){
 
 console.error(erro);
+
+document.getElementById("status")
+.textContent="⚠️ Arduino desconectado";
+
+document.getElementById("status")
+.classList.remove("ok");
 
 alert(
 "Não foi possível conectar ao Arduino."
@@ -1845,6 +1939,8 @@ alert(
 }
 
 async function lerArduino(){
+
+if(!porta||!porta.readable)return;
 
 leitor=porta.readable.getReader();
 
@@ -1860,7 +1956,7 @@ if(done)break;
 
 if(value){
 
-buffer+=decoder.decode(value);
+buffer+=decoder.decode(value,{stream:true});
 
 const linhas=buffer.split("\n");
 
@@ -1880,6 +1976,25 @@ console.error(
 "Erro Arduino:",
 erro
 );
+
+}finally{
+
+try{
+
+if(leitor){
+leitor.releaseLock();
+}
+
+}catch(erro){
+
+console.error(
+"Erro ao liberar leitor:",
+erro
+);
+
+}
+
+leitor=null;
 
 }
 
@@ -1968,6 +2083,8 @@ leiturasHora=[];
 eventosVibracao=[];
 totalVibracoes=0;
 vibracaoDetectada=false;
+ultimaLeitura=0;
+grupoHora="";
 
 localStorage.removeItem(
 "forestGuardHistorico"
@@ -1990,6 +2107,9 @@ document.getElementById(
 ).innerHTML="";
 
 atualizarVibracaoUI();
+
+document.getElementById("proxima")
+.textContent="Aguardando primeira leitura";
 
 }
 
@@ -2427,6 +2547,7 @@ resposta,
 INICIALIZAÇÃO
 ============================================================ */
 
+mostrarLogin();
 atualizarHistorico();
 atualizarEventosVibracao();
 atualizarVibracaoUI();
